@@ -1,9 +1,6 @@
 const router = require('express').Router();
 const {
   User,
-  Post,
-  Vote,
-  Comment,
   Department,
   Role
 } = require('../../models');
@@ -15,7 +12,20 @@ router.get('/', (req, res) => {
   User.findAll({
       attributes: {
         exclude: ['password']
-      }
+      },
+      include: [{
+        model: Role,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        },
+        include: [{
+          model: Department,
+          attributes: {
+            exclude: ['createdAt', 'updatedAt']
+          },
+        }]
+      },
+    ]
       // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
     })
     .then(dbUserData => res.json(dbUserData))
