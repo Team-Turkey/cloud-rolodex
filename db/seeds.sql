@@ -7,29 +7,22 @@ VALUES
 ('Legal');
 
 INSERT INTO role
-(title, salary, department_id)
+(title, department_id)
 VALUES
-('Sales Lead', 100000, 1),
-('Lead Engineer', 150000, 2),
-('Lead Accountant', 175000, 3),
-('Legal Team Lead', 250000, 4),
-('Salesperson', 80000, 1),
-('Software Engineer', 120000, 2),
-('Accountant', 125000, 3),
-('Lawyer', 190000, 4);
+('Sales Lead', 1),
+('Lead Engineer', 2),
+('Lead Accountant', 3),
+('Legal Team Lead', 4),
+('Salesperson', 1),
+('Software Engineer', 2),
+('Accountant', 3),
+('Lawyer', 4);
 
-INSERT INTO employee
-(first_name, last_name, role_id, manager_id)
+INSERT INTO user
+(username,  role_id, first_name, last_name, phone, email, password)
 VALUES
-('Jeff', 'Johnston', 1, null),
-('Mandy', 'Moore', 2, null),
-('James', 'Bond', 3, null),
-('Matt', 'Damon', 4, null);
+('jeebs', 1, 'Jeff', 'Johnston', '555-555-5555', 'jeff@jeff.com', 'password'),
+('meemore', 2, 'Mandy', 'Moore', '555-123-4567', 'mandy@mandy.com', 'password'),
+('007', 3, 'James', 'Bond', '555-007-0007', "bond@jb.com", 'password'),
+('Dames', 4, 'Matt', 'Damon', '555-627-5309', 'matt@damon.com', 'password');
 
-INSERT INTO manager
-(first_name, last_name, role_id, department_id)
-VALUES
-('Jeff', 'Johnston', 1, 1),
-('Mandy', 'Moore', 2, 2),
-('James', 'Bond', 3, 3),
-('Matt', 'Damon', 4, 4);

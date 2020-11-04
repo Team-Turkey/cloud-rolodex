@@ -3,7 +3,9 @@ const {
   User,
   Post,
   Vote,
-  Comment
+  Comment,
+  Department,
+  Role
 } = require('../../models');
 const withAuth = require('../../utils/auth');
 
@@ -31,24 +33,17 @@ router.get('/:id', (req, res) => {
       },
       // replace the existing `include` with this
       include: [{
-          model: Post,
-          attributes: ['id', 'title', 'post_url', 'created_at']
-        },
-        // include the Comment model here:
-        {
-          model: Comment,
-          attributes: ['id', 'comment_text', 'created_at'],
-          include: {
-            model: Post,
-            attributes: ['title']
-          }
+          model: Department,
+          attributes: ['id', 'name']
         },
         {
-          model: Post,
-          attributes: ['title'],
-          through: Vote,
-          as: 'voted_posts'
-        }
+          model: Role,
+          attributes: ['id', 'title', 'department_id'],
+          // include: {
+          //   model: Post,
+          //   attributes: ['title']
+          // }
+        },
       ],
 
       where: {
@@ -75,7 +70,7 @@ router.post('/', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.create({
       username: req.body.username,
-      role: req.body.role,
+      role_id: req.body.role_id,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       phone: req.body.phone,
@@ -137,7 +132,10 @@ router.post('/login', (req, res) => {
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
 
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
+      res.json({
+        user: dbUserData,
+        message: 'You are now logged in!'
+      });
     });
   });
 });
@@ -147,8 +145,7 @@ router.post('/logout', withAuth, (req, res) => {
     req.session.destroy(() => {
       res.status(204).end();
     });
-  }
-  else {
+  } else {
     res.status(404).end();
   }
 });
