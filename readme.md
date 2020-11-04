@@ -17,6 +17,8 @@ Cloud Rolodex is an interactive, express.js, sequelize and mySql-driven applicat
 ### Installation
   Clone or fork the code from the cloud-rolodex repository on GitHub. Open the code in a standard code editing application, such as VS Code. Install npm and the following dependencies: 
   * bcrypt
+  * console.table
+  * inquirer
   * connect-session-sequelize
   * dotenv
   * express

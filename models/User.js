@@ -29,6 +29,20 @@ User.init(
         type: DataTypes.STRING,
         allowNull: false
       },
+      first_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      last_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        // there cannot be any duplicate email values in this table
+        unique: true,   
+      },
       // define an email column
       email: {
         type: DataTypes.STRING,
