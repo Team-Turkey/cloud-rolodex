@@ -55,4 +55,3 @@ https://github.com/jeffwjohn
 https://github.com/Team-Turkey
     
 ##### Send any questions to the following email address:
-jeffwjohn@yahoo.com
