@@ -27,7 +27,7 @@ Post.belongsToMany(User, {
 });
 
 User.hasOne(Role, {
-    foreignKey: 'role_id',  
+    foreignKey: 'user_id',  
 });
 
 Role.belongsTo(User, {

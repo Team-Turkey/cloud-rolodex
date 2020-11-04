@@ -2,19 +2,19 @@ const { Department } = require('../models');
 
 const departmentData = [
   {
-    department_name: 'Shirts',
+    name: 'Sales',
   },
   {
-    department_name: 'Shorts',
+    name: 'Engineering',
   },
   {
-    department_name: 'Music',
+    name: 'Finance',
   },
   {
-    department_name: 'Hats',
+    name: 'Legal',
   },
   {
-    department_name: 'Shoes',
+    name: 'Sanitation',
   },
 ];
 
