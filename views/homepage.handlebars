@@ -1,0 +1,51 @@
+{{!-- <ol class="post-list">
+  <li>
+    <article class="post">
+      <div class="title">
+        <a href="{{post_url}}" target="_blank">{{title}}</a>
+        <span>({{post_url}})</span>
+      </div>
+      <div class="meta">
+        {{vote_count}} point(s) by {{user.username}} on
+        {{created_at}}
+        |
+        <a href="/post/{{id}}">{{comments.length}} comment(s)</a>
+      </div>
+    </article>
+  </li>
+</ol> --}}
+
+{{!-- Did you notice the {{ }} expressions that can be used for content (e.g., {{vote_count}} point(s)), as well as for attributes in HTML elements (e.g., <a href="{{post_url}}">)? When the template is rendered and sent to the client, the expressions will be replaced by the correct data. 
+    
+The main.handlebars file used three curly brackets as {{{ body }}}, but here we're only using two brackets as {{ title }}. Why is that? The difference is that two brackets will convert HTML characters to strings. For instance, < would become &lt;. Three brackets, on the other hand, will render the data as HTML.--}}
+
+{{!-- <ol class="post-list">
+  {{#each posts}}
+  <li>
+    <article class="post">
+      <div class="title">
+        <a href="{{post_url}}" target="_blank">{{title}}</a>
+        <span>({{post_url}})</span>
+      </div>
+      <div class="meta">
+        {{vote_count}} point(s) by {{user.username}} on
+        {{created_at}}
+        |
+        <a href="/post/{{id}}">{{comments.length}} comment(s)</a>
+      </div>
+    </article>
+  </li>
+  {{/each}}
+</ol> --}}
+
+{{!-- Note the use of {{#each}} to begin the loop and {{/each}} to define where it ends. Any HTML code in between (e.g., the <li> element) will be repeated for every item in posts. Refresh the page, and you might be surprised to see that it already works. If you have several posts in your database, your homepage will look similar to the following image: --}}
+
+{{!-- Within the {{#each}} block, Handlebars.js is smart enough to know that it's working with an object on each iteration, so it looks for the necessary properties. We can make this a little clearer, however, by declaring a variable name in the {{#each}} expression and using that name for the subsequent placeholders.
+ --}}
+<ol class="post-list">
+  {{#each posts as |post|}}
+  <li>
+      {{> post-info post }}
+  </li>
+  {{/each}}
+</ol>

@@ -1,0 +1,27 @@
+    {{!-- <article class="post">
+      <div class="title">
+        <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
+        <span>({{post.post_url}})</span>
+      </div>
+      <div class="meta">
+        {{post.vote_count}} point(s) by {{post.user.username}} on
+        {{post.created_at}}
+        |
+        <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
+      </div>
+    </article> --}}
+    {{!-- Oops! It looks like things aren't working yet. That's because post-info.handlebars doesn't know what post refers to. When we pass the post object into the partial, we don't pass the object as is but rather pass in all of the properties of that object. --}}
+
+    {{!-- To fix this issue, we need to update all variables to not use post.<property> syntax and, instead, to just use the property names. The updated post-info.handlebars file should look like the following code: --}}
+
+    <article class="post">
+  <div class="title">
+  <a href="{{post_url}}" target="_blank">{{title}}</a>
+  <span>({{format_url post_url}})</span>
+</div>
+  <div class="meta">
+  {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}}
+  |
+  <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+</div>
+</article>
