@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({
-            message: 'No user found with this id'
+            message: 'No role found with this id.'
           });
           return;
         }
@@ -64,4 +64,50 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
       });
   });
+
+  router.post('/', withAuth, (req, res) => {
+    Role.create({
+        title: req.body.title,
+        department_id: req.body.department_id
+      })
+      .then(dbPostData => res.json(dbPostData))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
+  router.put('/:id', withAuth, (req, res) => {
+    Role.update(req.body,  {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(dbPostData => {
+        if (!dbPostData) {
+          res.status(404).json({
+            message: 'No role found with this id.'
+          });
+          return;
+        }
+        res.json(dbPostData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
+  router.delete('/:id', withAuth, (req, res) => {
+    Role.destroy({
+        where: {
+            id: req.params.id}
+    })
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+    });
+
 module.exports = router;
