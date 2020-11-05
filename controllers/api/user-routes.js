@@ -17,13 +17,9 @@ router.get('/', (req, res) => {
         model: Role,
         attributes: {
           exclude: ['createdAt', 'updatedAt']
-        },
-        include: [{
-          model: Department,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt']
-          },
-        }]
+        
+      
+        }
       },
     ]
       // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.

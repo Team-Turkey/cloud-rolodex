@@ -22,6 +22,14 @@ Role.belongsTo(Department, {
     foreignKey: "department_id"
 });
 
+// Department.hasMany(User, {
+//     foreignKey: 'department_id'
+// })
+
+// User.belongsTo(Department, {
+//     foreignKey: 'department_id'
+// })
+
 
 // With these two .belongsToMany() methods in place, we're allowing both the User and Post models to query each other's information in the context of a vote. If we want to see which users voted on a single post, we can now do that. If we want to see which posts a single user voted on, we can see that too. This makes the data more robust and gives us more capabilities for visualizing this data on the client-side.
 
