@@ -34,27 +34,22 @@ router.get('/', (req, res) => {
 // GET /api/users/1
 router.get('/:id', (req, res) => {
   User.findOne({
+    where: {
+      id: req.params.id
+    },
       attributes: {
         exclude: ['password']
       },
       // replace the existing `include` with this
       include: [{
-          model: Department,
-          attributes: ['id', 'name']
-        },
-        {
           model: Role,
           attributes: ['id', 'title', 'department_id'],
-          // include: {
-          //   model: Post,
-          //   attributes: ['title']
-          // }
-        },
-      ],
-
-      where: {
-        id: req.params.id
-      }
+          include: [{
+            model: Department,
+            attributes: ['id', 'name']
+      
+        }]
+      }]
     })
     .then(dbUserData => {
       if (!dbUserData) {
