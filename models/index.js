@@ -22,6 +22,8 @@ Role.belongsTo(Department, {
     foreignKey: "department_id"
 });
 
+
+
 // Department.hasMany(User, {
 //     foreignKey: 'department_id'
 // })

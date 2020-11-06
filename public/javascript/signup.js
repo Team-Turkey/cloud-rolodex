@@ -6,6 +6,7 @@ async function signupFormHandler(event) {
     const password = document.querySelector("#password-signup").value.trim();
 
   // Confirm login credentials with database
+  console.log(username, email, password)
     if (username && password) {
       const response = await fetch("/api/users", {
         method: "post",
@@ -17,6 +18,7 @@ async function signupFormHandler(event) {
         headers: { "Content-Type": "application/json" },
       });
       // check the response status, redirect to dashboard after
+
       if (response.ok) {
         console.log("success");
         document.location.replace("/dashboard");
