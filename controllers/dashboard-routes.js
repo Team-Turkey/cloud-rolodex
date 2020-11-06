@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const {
-    Post,
     User,
-    Comment
+    Department,
+    Role
 } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -109,7 +109,6 @@ router.get('/edit/:id', withAuth, (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
     User.create({
         username: req.body.username,
         role_id: req.body.role_id,

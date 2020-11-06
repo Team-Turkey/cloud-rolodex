@@ -31,7 +31,7 @@ User.init(
       },
       role_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+    
         references: {
           model: 'role',
           key: 'id'
@@ -39,22 +39,22 @@ User.init(
       },
       first_name: {
         type: DataTypes.STRING,
-        allowNull: false
+  
       },
       last_name: {
         type: DataTypes.STRING,
-        allowNull: false
+       
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+      
         // there cannot be any duplicate email values in this table
         unique: true,   
       },
       // define an email column
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+      
         // there cannot be any duplicate email values in this table
         unique: true,
         // if allowNull is set to false, we can run our data through validators before creating the table data
