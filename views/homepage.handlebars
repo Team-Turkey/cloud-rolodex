@@ -42,10 +42,23 @@ The main.handlebars file used three curly brackets as {{{ body }}}, but here we'
 
 {{!-- Within the {{#each}} block, Handlebars.js is smart enough to know that it's working with an object on each iteration, so it looks for the necessary properties. We can make this a little clearer, however, by declaring a variable name in the {{#each}} expression and using that name for the subsequent placeholders.
  --}}
-<ol class="post-list">
+
+<!--<ol class="post-list">
   {{#each posts as |post|}}
   <li>
       {{> post-info post }}
   </li>
   {{/each}}
-</ol>
+</ol>-->
+
+<hero class="jumbotron">Welcome to the Cloud Rolodex</hero>
+
+<div class="card">
+  <h3 class="card-header">Please Select an Option</h3>
+  <button type="submit" class="btn" href="/signup" id="signup">Create An Account</button>
+    <button type="submit" class="btn" href="/login" id="login">Log In</button>
+</div>
+
+<p>Enterprise solutions for secure retention of employee information and communication</p>
+
+<script src="/javascript/homepage.js"></script>
