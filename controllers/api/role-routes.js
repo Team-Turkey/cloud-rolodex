@@ -21,7 +21,10 @@ router.get('/', (req, res) => {
         },
         },
     {
-        model: User
+        model: User,
+        attributes: {
+            exclude: ['password']
+          },
     }]
     
       })
@@ -47,7 +50,10 @@ router.get('/', (req, res) => {
       },
       },
   {
-      model: User
+      model: User,
+      attributes: {
+        exclude: ['password']
+      },
   }]
     })
       .then(dbUserData => {
