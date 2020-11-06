@@ -108,4 +108,42 @@ router.get('/edit/:id', withAuth, (req, res) => {
         });
 });
 
+router.post('/', (req, res) => {
+    // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
+    User.create({
+        username: req.body.username,
+        role_id: req.body.role_id,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        phone: req.body.phone,
+        email: req.body.email,
+        password: req.body.password
+      })
+      // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
+      .then(dbUserData => {
+        req.session.save(() => {
+          req.session.user_id = dbUserData.id;
+          req.session.username = dbUserData.username;
+          req.session.loggedIn = true;
+  
+          res.json(dbUserData);
+        })
+        const post = dbUserData.get({
+            plain: true
+        });
+
+        // pass data to template
+        res.render('dashboard', {
+            post,
+            loggedIn: req.session.loggedIn
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+     
+  });
+
+
 module.exports = router;
