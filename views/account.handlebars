@@ -55,6 +55,7 @@
     function getSignedRequest(file){
       const xhr = new XMLHttpRequest();
       xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+      // If the name (file.name) and/or mime type (file.type) of the file you upload contains special characters (such as spaces), then they should be encoded first (e.g. encodeURIComponent(file.name)).
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
           if(xhr.status === 200){
