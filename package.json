@@ -4,7 +4,6 @@
   "description": "![](https://img.shields.io/badge/License-MIT-blue.svg) ## Description  Cloud Rolodex is an interactive, express.js, sequelize and mySql-driven application that captures user input in the form of company rolodex data stored on a backend server. The rolodex items are each assigned a unique ID, and may be edited and deleted by logged in users at the push of a button.",
   "main": "server.js",
   "dependencies": {
-    "aws": "0.0.3-2",
     "aws-sdk": "^2.787.0",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",

@@ -7,6 +7,10 @@ const {
 } = require('../models');
 const withAuth = require('../utils/auth');
 
+router.get('/', withAuth, (req, res) => {
+    res.render('dashboard', {loggedIn: true});
+})
+
 router.put('/', withAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
