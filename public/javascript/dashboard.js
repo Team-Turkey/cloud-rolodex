@@ -98,6 +98,13 @@ function buttonClickHandler(event) {
         usersContainerEl.textContent = "";
     };
 };
+
+function UpdateButtonClickHandler(event) {
+    event.preventDefault()
+    document.location.replace('/account')
+}
+
 userFormEl.addEventListener("submit", formSubmitHandler)
-languageButtonsEl.addEventListener("click", buttonClickHandler);
+departmentButtonsEl.addEventListener("click", buttonClickHandler);
+document.querySelector("#update-btn").addEventListener("click", UpdateButtonClickHandler)
 
