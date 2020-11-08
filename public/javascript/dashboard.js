@@ -9,32 +9,37 @@ function formSubmitHandler(event) {
     var name = nameInputEl.value.trim()
 
     if (name) {
-        getUserRepos(name);
+        getUserInfo(name);
         nameInputEl.value = "";
     } else {
         alert("Please enter your co-workers first name!")
     }
 };
 
-function getUsers(user) {
-    
-    fetch('/api/users/')
-        .then(function(response) {
-            // request was successful
-            if (response.ok) {
-            response.json().then(function(data) {
-                displayRepos(data, user);
-            });
-            } else {
-            alert("Error: " + response.statusText);
-            }
-    })
-    .catch(function(error) {
-        // Notice this `.catch()` getting chained onto the end of the `.then()` method
-        alert("Unable to connect to GitHub");
-    });
-    };
 
+
+async function getAllUsers(event) {
+    event.preventDefault();
+    
+    const response = await fetch('/api/users/', {
+        method: "GET",
+    })
+    if (response.ok) {
+        console.log(response);
+      } else {
+        alert(response.statusText);
+      }
+};
+
+function dispayInfo(users, searchTerm) {
+    if(users.length === 0) {
+        usersContainerEl.textContent = "No User Found";
+        return;
+    }
+    // clear old content and place new search term
+    usersContainerEl.textContent = "";
+    usersContainerEl.textContent = searchTerm
+}
 // var displayUsers = function(repos, searchTerm) {
 //     // check if api returned any users
 //     if (repos.length === 0) {
@@ -74,22 +79,29 @@ function getUsers(user) {
 //     }
 //     };
 
-function getByDepartment(language) {
-    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+async function getByDepartment(department) {
     
-    fetch(apiUrl).then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                displayRepos(data.items, language)
-            });
-        } else {
-        alert("Error: " + response.statusText);
+    
+    await fetch("api/departments", {
+        method: "GET",
+        body: JSON.stringify({
+            name
+        }),
+        headers: {
+            "Content-Type": "application/json",
         }
-    });
-    };
+    })
+    if (response.ok) {
+        document.location.reload();
+      } else {
+        alert(response.statusText);
+        document.querySelector("#comment-form").style.display = "block";
+      }
+    }
+
 
 function buttonClickHandler(event) {
-    var department = event.target.getAttribute("department-buttons")
+    var department = event.target.getAttribute("department")
     if(department) {
         // sort by filter
         getByDepartment(department)
@@ -107,4 +119,4 @@ function UpdateButtonClickHandler(event) {
 userFormEl.addEventListener("submit", formSubmitHandler)
 departmentButtonsEl.addEventListener("click", buttonClickHandler);
 document.querySelector("#update-btn").addEventListener("click", UpdateButtonClickHandler)
-
+document.querySelector('#search-all-users').addEventListener("click", getAllUsers)

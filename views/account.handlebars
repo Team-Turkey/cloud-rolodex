@@ -1,6 +1,6 @@
 <html>
   <body>
-
+      {{#if loggedIn}}
     <h1>Edit your account</h1>
 
     <hr>
@@ -34,7 +34,9 @@
 
       <button class="btn" id="update-btn">Update Profile</button>
     </form>
-
+    {{else}}
+    <h1 href="/login">Unable to edit information, You are not logged in</h1>
+    {{/if}}
 
   
     <script src="/javascript/account.js"></script>
