@@ -5,18 +5,18 @@ async function editFormHandler(event) {
         window.location.toString().split('/').length - 1];
     console.log(id);
 
-    const firstName = document.querySelector('input[name="first-name"]').value.trim()
-    const lastName = document.querySelector('input[name="last-name"]').value.trim()
+    const first_name = document.querySelector('input[name="first-name"]').value.trim()
+    const last_name = document.querySelector('input[name="last-name"]').value.trim()
     const phone = document.querySelector('input[name="phone"]').value.trim()
     const email = document.querySelector('input[name="email"]').value.trim()
     // const department = document.querySelector('select[value]').value.trim()
 
 
-    const response = await fetch(`/api/users/${id}`, {
+    const response = await fetch(`/api/users/19`, {
         method: 'PUT',
         body: JSON.stringify({
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             phone,
             email,
             // department

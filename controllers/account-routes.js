@@ -11,7 +11,9 @@ const withAuth = require('../utils/auth');
  * Respond to GET requests to /account.
  * Upon request, render the 'account.handlebars' web page in views/ directory.
  */
-router.get('/', (req, res) => res.render('account'));
+router.get('/', withAuth, (req, res) => {
+  res.render('account', {loggedIn: true});
+})
 
 /*
  * Respond to GET requests to /sign-s3.
@@ -43,6 +45,40 @@ router.get('/sign-s3', (req, res) => {
       res.end();
     });
   });
+
+  router.put('/', withAuth, (req, res) => {
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+          id: req.params.id
+        }
+      })
+      // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
+      .then(dbUserData => {
+        req.session.save(() => {
+          req.session.user_id = dbUserData.id;
+          req.session.username = dbUserData.username;
+          req.session.loggedIn = true;
+  
+          res.json(dbUserData);
+        })
+        const post = dbUserData.get({
+            plain: true
+        });
+
+        // pass data to template
+        res.render('dashboard', {
+          account,
+            loggedIn: req.session.loggedIn
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+     
+  });
+
   
   // You may wish to assign another, customized name to the object instead of using the one that the file is already named with, which is useful for preventing accidental overwrites in the S3 bucket. This name could be related to the ID of the user’s account, for example. If not, you should provide some method for properly quoting the name in case there are spaces or other awkward characters present. In addition, this is the stage at which you could provide checks on the uploaded file in order to restrict access to certain file types. For example, a simple check could be implemented to allow only .png files to proceed beyond this point.
 

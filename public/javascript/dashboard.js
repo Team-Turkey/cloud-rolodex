@@ -22,17 +22,18 @@ async function getAllUsers(event) {
     event.preventDefault();
     
     const response = await fetch('/api/users/', {
-        method: "GET",
+        method: "GET"
     })
     if (response.ok) {
         console.log(response);
+        document.location.reload()
         
       } else {
         alert(response.statusText);
       }
 };
 
-function dispayInfo(users, searchTerm) {
+function displayUsers(users, searchTerm) {
     if(users.length === 0) {
         usersContainerEl.textContent = "No User Found";
         return;
@@ -40,60 +41,44 @@ function dispayInfo(users, searchTerm) {
     // clear old content and place new search term
     usersContainerEl.textContent = "";
     usersContainerEl.textContent = searchTerm
+
+    // loop over users
+    for( i=0; i < users.length; i++) {
+        // format user name
+        var userName = users[i]
+        // create a container for each user
+        var userEl = document.createElement("a")
+        userEl.classlist = "list-item flex-row justify-space-between align-center";
+        //  create a span element to hold the user's name
+        var titleEl = document.createElement("span")
+        titleEl.textContent(userName)
+        // create a status element
+        var statusEl = document.createElement("span")
+        statusEl.classList = "flex-row align-center"
+        // append to container
+        userEl.appendChild(titleEl)
+        userEl.appendChild(statusEl)
+
+        // append container to the dom
+        usersContainerEl.appendChild(userEl)
+    }
 }
-// var displayUsers = function(repos, searchTerm) {
-//     // check if api returned any users
-//     if (repos.length === 0) {
-//         usersContainerEl.textContent = "No users found with that name.";
-//         return;
-//     };
 
-//     // clear old content
-//     usersContainerEl.textContent = "";
-//     userSearchTerm.textContent = searchTerm;
 
-//     // loop over repos
-//     for (i = 0; i < repos.length; i++) {
-//         // format repo name
-//         var repoName = repos[i].owner.login + "/" + repos[i].name;
-
-//         // create a container for each repo
-//         var repoEl = document.createElement("a")
-//         repoEl.classList = "list-item flex-row justify-space-between align-center";
-//         repoEl.setAttribute("href","./single-repo.html?repo=" + repoName)
-
-//         // create a span element to hold repository name
-//         var titelEl = document.createElement("span");
-//         titelEl.textContent = repoName;
-        
-//         // create a status element
-//         var statusEl = document.createElement("span");
-//         statusEl.classList = "flex-row align-center";
-
+async function getByDepartment(id) {
     
-//         // append to container
-//         repoEl.appendChild(titelEl);
-//         repoEl.appendChild(statusEl);
-        
-//         // append container to the dom
-//         usersContainerEl.appendChild(repoEl);
-//     }
-//     };
-
-async function getByDepartment(department) {
-    
-    
-    await fetch("api/departments", {
+    const response = await fetch(`api/users/${id}`, {
         method: "GET",
-        body: JSON.stringify({
-            name
-        }),
+        
         headers: {
             "Content-Type": "application/json",
         }
     })
     if (response.ok) {
-        document.location.reload();
+        console.log(response.body)
+        response.json().then((data) => {
+            displayUsers(data.items, id)
+        })
       } else {
         alert(response.statusText);
         document.querySelector("#comment-form").style.display = "block";
@@ -102,13 +87,15 @@ async function getByDepartment(department) {
 
 
 function buttonClickHandler(event) {
-    var department = event.target.getAttribute("department")
-    if(department) {
+    var id = event.target.getAttribute("id")
+    if(id) {
         // sort by filter
-        getByDepartment(department)
+        console.log("id", id)
+        getByDepartment(id)
+        
 
         // clear old content
-        usersContainerEl.textContent = "";
+        // usersContainerEl.textContent = "";
     };
 };
 

@@ -34,6 +34,37 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
       });
   });
+  // GET all Employees by Department
+  router.get('getallusers/', (req, res) => {
+    Department.findAll({
+        where: {
+            id: req.params.id
+          },
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        },
+        include: [{
+            model: User,
+            attributes: {
+                exclude: ['password']
+              },
+        }]
+      })
+      .then(dbPostData => {
+        console.log(dbPostData)
+        if (!dbPostData) {
+          res.status(404).json({
+            message: 'No department found with this id'
+          });
+          return;
+        }
+        res.json(dbPostData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
 
   router.get('/:id', (req, res) => {
     Department.findOne({

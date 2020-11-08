@@ -17,13 +17,13 @@
         </div>
 
         <div class="card">
-          <h3 class="card-header text-uppercase">Search By Topic</h3>
+          <h3 class="card-header text-uppercase">Search Employees By Department</h3>
           <div class="card-body" id="department-buttons">
-            <button class="btn" department="Sales" id="sales-btn">Sales</button>
-            <button class="btn" department="Engineering" id="engineering-btn">Engineering</button>
-            <button class="btn" department="Legal" id="legal-btn">Legal</button>
-            <button class="btn" department="Finance" id="finance-btn">Finance</button>
-            <button class="btn" department="Sanitation" id="sanitation-btn">Sanitation</button>
+            {{#each departments as |department|}}
+            {{> user-info-button department}}
+            {{!-- <button class="btn" department="{{name}}" id="sales-btn">{{name}}</button> --}}
+            {{/each}}
+
           </div>
         </div>
 

@@ -8,7 +8,14 @@ const {
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, (req, res) => {
-    res.render('dashboard', {loggedIn: true});
+  Department.findAll({
+    attributes: ["id", "name"]
+  })
+  .then((dbPostData) => {
+    const departments = dbPostData.map((department) => department.get({plain: true}))
+    res.render('dashboard', {departments, loggedIn: true });
+  })
+    
 })
 
 
