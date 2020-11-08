@@ -37,7 +37,9 @@
       </div>
       <div class="col-12 col-md-8">
         <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
-        <div id="users-container" class="list-group"></div>
+        {{#each users as |user| }}
+        {{> user-info user}}
+        {{/each}}
       </div>
   </main>
 </section>

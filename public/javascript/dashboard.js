@@ -26,6 +26,7 @@ async function getAllUsers(event) {
     })
     if (response.ok) {
         console.log(response);
+        
       } else {
         alert(response.statusText);
       }

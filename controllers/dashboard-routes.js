@@ -11,6 +11,7 @@ router.get('/', withAuth, (req, res) => {
     res.render('dashboard', {loggedIn: true});
 })
 
+
 router.get('/', (req, res) => {
   // Access our User model and run .findAll() method)
   User.findAll({

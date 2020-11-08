@@ -11,9 +11,6 @@ router.get('/', (req, res) => {
   res.render('homepage');
 });
 
-// router.get('/login', (req, res) => {
-//     res.render('login');
-//   });
 
   router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
@@ -28,6 +25,17 @@ router.get('/', (req, res) => {
     res.render('signup');
   });
 
+router.get('api/users', (req, res) => {
+  res.render('dashboard', {
+    username: 'jeebs',
+    role_id: 1,
+    first_name: "Jeff",
+    last_name: "Johnston",
+    phone: "555-555-5555",
+    email: "jeff@jeff.com",
+    password: "password"
+  })
+})
 
 // router.get('/', (req, res) => {
 //   res.render('homepage');
