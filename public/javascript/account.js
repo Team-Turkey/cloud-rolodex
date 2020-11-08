@@ -54,6 +54,7 @@ function uploadFile(file, signedRequest, url){
     getSignedRequest(file);
   }
 
+
   /*
    Bind listeners when the page loads.
   */
