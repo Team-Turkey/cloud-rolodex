@@ -9,15 +9,21 @@
             <button type="submit" class="btn">Get User</button>
           </form>
         </div>
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search All Users</h3>
+          <div class="card-body" id="all-users">
+            <button class="btn"  id="search-all-users">Search All Users</button>
+          </div>
+        </div>
 
         <div class="card">
           <h3 class="card-header text-uppercase">Search By Topic</h3>
           <div class="card-body" id="department-buttons">
-            <button class="btn" department="Sales">Sales</button>
-            <button class="btn" department="Engineering">Engineering</button>
-            <button class="btn" department="Legal">Legal</button>
-            <button class="btn" department="Finance">Finance</button>
-            <button class="btn" department="Sanitation">Sanitation</button>
+            <button class="btn" department="Sales" id="sales-btn">Sales</button>
+            <button class="btn" department="Engineering" id="engineering-btn">Engineering</button>
+            <button class="btn" department="Legal" id="legal-btn">Legal</button>
+            <button class="btn" department="Finance" id="finance-btn">Finance</button>
+            <button class="btn" department="Sanitation" id="sanitation-btn">Sanitation</button>
           </div>
         </div>
 
@@ -25,13 +31,15 @@
           <h3 class="card-header text-uppercase">Update Your Information</h3>
           <div class="card-body" id="update-button">
             <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
-            <button class="btn" id="update-btn">Update Info</button>
+            <button class="btn" id="update-btn" href="/dashboard/account">Update Info</button>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-8">
         <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
-        <div id="users-container" class="list-group"></div>
+        {{#each users as |user| }}
+        {{> user-info user}}
+        {{/each}}
       </div>
   </main>
 </section>

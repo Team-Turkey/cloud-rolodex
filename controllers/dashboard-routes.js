@@ -11,6 +11,33 @@ router.get('/', withAuth, (req, res) => {
     res.render('dashboard', {loggedIn: true});
 })
 
+
+router.get('/', (req, res) => {
+  // Access our User model and run .findAll() method)
+  User.findAll({
+      attributes: {
+        exclude: ['password']
+      },
+      include: [{
+        model: Role,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        
+      
+        }
+      },
+    ]
+      // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
+    })
+    .then(dbUserData => {
+      res.json(dbUserData)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.put('/', withAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
