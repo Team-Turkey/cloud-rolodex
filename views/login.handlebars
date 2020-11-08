@@ -1,18 +1,15 @@
-<form class="login-form">
-  <div>
-    <label for="email-login">email:</label>
-    <input type="text" id="email-login" />
-  </div>
-  <div>
-    <label for="password-login">password:</label>
-    <input type="password" id="password-login" />
-  </div>
-  <div>
-    <button type="submit">login</button>
-  </div>
-</form>
+<main role="main" class="inner cover">
+  <h1 class="display-4">Enter login info</h1>
+  <form class="login-form">
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+  
+    <button class="btn btn-sm" type="submit">Sign in</button>
 
-
+  </form>
+    
 
 <script src="/javascript/login.js"></script>
 {{!-- It's important to keep in mind that the front-end JavaScript code will not be sent over to the client at the same time as the HTML content. The browser will make a new request for the JavaScript file after the template has rendered and it sees the linked <script> element. --}}

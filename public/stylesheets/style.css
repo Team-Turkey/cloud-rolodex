@@ -1,8 +1,15 @@
+:root {
+  --primary: #2C2B2C;
+  --secondary: #FEFFFE;
+  --gray: grey;
+}
+
 
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: var(--primary);
+  text-decoration: none;
 }
 
 /* Custom default button */
@@ -17,25 +24,30 @@ a:hover {
 
 
 
-
-
-
-
 /*
  * Base structure
  */
 
 html,
 body {
+
+  font-family: 'Lexend Deca', sans-serif;
   height: 100%;
   background-color: #FEFFFE;
 }
 
 body {
+  overflow: hidden;
   display: -ms-flexbox;
   display: flex;
-  color: #2C2B2C;
+  color: var(--primary);
 }
+
+.bg-primary {
+  background-color: var(--secondary) !important; 
+}
+
+
 
 .cover-container {
   max-width: 95%;
@@ -50,6 +62,26 @@ body {
 
 }
 
+.menu {
+  color: var(--primary);
+}
+
+#sidebar-container {
+  min-height: 100vh;
+  border-right: solid #D3D3D3 1px;
+  
+
+}
+
+#sidebar-container .logo {
+  padding:10px 10px 80px 15px;
+  font-weight: 700;
+
+}
+
+#sidebar-container .menu {
+  width: 15rem;
+}
 
 
 .masthead-brand {
@@ -61,7 +93,7 @@ body {
 .nav-masthead .nav-link {
   padding: .25rem 0;
   font-weight: 700;
-  color: #2C2B2C;
+  color: var(--primary);
   border-bottom: .25rem solid transparent;
 }
 
@@ -161,10 +193,6 @@ body {
     font-size: 12px;
   color: #2C2B2C
 }
-
-
-
-
 
 
 
