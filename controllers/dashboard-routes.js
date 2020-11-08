@@ -15,34 +15,42 @@ router.get('/', withAuth, (req, res) => {
     const departments = dbPostData.map((department) => department.get({plain: true}))
     res.render('dashboard', {departments, loggedIn: true });
   })
-    
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 })
 
 
 router.get('/', (req, res) => {
   // Access our User model and run .findAll() method)
+  
   User.findAll({
+    attributes: {
+      include: ['first_name', 'last_name', 'phone', 'email'],
+      exclude: ['password']
+    },
+    include: [{
+      model: Role,
       attributes: {
-        exclude: ['password']
-      },
-      include: [{
-        model: Role,
-        attributes: {
-          exclude: ['createdAt', 'updatedAt']
-        
+        exclude: ['createdAt', 'updatedAt']
       
-        }
-      },
-    ]
-      // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
-    })
-    .then(dbUserData => {
-      res.json(dbUserData)
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    
+      }
+    },
+  ]
+    // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
+  })
+  .then(dbUserData => {
+    const users = dbUserData.map((user) => user.get({plain: true}))
+    res.render('dashboard', {users, loggedIn: true})
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+    
+  
 });
 
 router.put('/', withAuth, (req, res) => {

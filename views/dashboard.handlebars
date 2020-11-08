@@ -1,5 +1,5 @@
 <section>
-  <main class="flex-row justify-space-between">
+  <div class="flex-row justify-space-between">
       <div class="col-12 col-md-4">
         <div class="card">
           <h3 class="card-header text-uppercase">Search By Name</h3>
@@ -21,7 +21,7 @@
           <div class="card-body" id="department-buttons">
             {{#each departments as |department|}}
             {{> user-info-button department}}
-            {{!-- <button class="btn" department="{{name}}" id="sales-btn">{{name}}</button> --}}
+            
             {{/each}}
 
           </div>
@@ -38,10 +38,19 @@
       <div class="col-12 col-md-8">
         <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
         {{#each users as |user| }}
-        {{> user-info user}}
+        <div id="users-container" class="list-group">
+          <div class="card">
+          <h3 class="card-header text-uppercase">First Name{{user.first_name}} Last Name {{user.last_name}}</h3>
+          <div class="card-body" id="department-buttons">
+            <a href="">{{user.phone}}Phone</a>
+            <a href="">{{user.email}}Email</a>
+            <a href="">{{user.role_id}}Department</a>
+          </div>
+        </div>
+        </div>
         {{/each}}
       </div>
-  </main>
+  </div>
 </section>
 
 <script src="/javascript/dashboard.js"></script>
