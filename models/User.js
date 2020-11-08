@@ -27,34 +27,34 @@ User.init(
       // define a username column
       username: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue:""
       },
       role_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         references: {
           model: 'role',
           key: 'id'
-        }
+        },
+        defaultValue: 1
       },
       first_name: {
         type: DataTypes.STRING,
-        allowNull: false
+          defaultValue: " "
       },
       last_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue: " "
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: " ",
         // there cannot be any duplicate email values in this table
         unique: true,   
       },
       // define an email column
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: " ",
         // there cannot be any duplicate email values in this table
         unique: true,
         // if allowNull is set to false, we can run our data through validators before creating the table data

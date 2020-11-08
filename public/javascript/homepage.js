@@ -1,5 +1,3 @@
-// const { response } = require("express");
-
 function loginFormHandler(event) {
     console.log("login function")
     event.preventDefault();
@@ -11,9 +9,6 @@ function signupFormHandler(event) {
     document.location.replace("/signup")
 };
 
-document.addEventListener("click", loginFormHandler)
+document.getElementById("login").addEventListener("click", loginFormHandler)
 
-document.addEventListener("click", signupFormHandler)
-
-
-// document.onClick("#signup").addEventListener("submit", signupFormHandler)
+document.getElementById("signup").addEventListener("click", signupFormHandler)

@@ -1,33 +1,39 @@
 <section>
-  <h2>Create New Post</h2>
+  <main class="flex-row justify-space-between">
+      <div class="col-12 col-md-4">
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search By Name</h3>
+          <form id="user-form" class="card-body">
+            <label class="form-label" for="first-name">First Name</label>
+            <input name="first-name" id="first-name" type="text" autofocus="true" class="form-input" />
+            <button type="submit" class="btn">Get User</button>
+          </form>
+        </div>
 
-  <form class="new-post-form">
-    <div>
-      <label for="post-title">Title</label>
-      <input type="text" id="post-title" name="post-title" />
-    </div>
-    <div>
-      <label for="post-url">Link</label>
-      <input id="post-url" name="post-url" />
-    </div>
-    <button type="submit" class="btn">Create</button>
-  </form>
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search By Topic</h3>
+          <div class="card-body" id="department-buttons">
+            <button class="btn" department="Sales">Sales</button>
+            <button class="btn" department="Engineering">Engineering</button>
+            <button class="btn" department="Legal">Legal</button>
+            <button class="btn" department="Finance">Finance</button>
+            <button class="btn" department="Sanitation">Sanitation</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-header text-uppercase">Update Your Information</h3>
+          <div class="card-body" id="update-button">
+            <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
+            <button class="btn" id="update-btn">Update Info</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
+        <div id="users-container" class="list-group"></div>
+      </div>
+  </main>
 </section>
 
-
-{{!-- Note how we wrapped the entire <section> element in an {{#if}} helper so users won't see any of this content if they have no posts. We're also using the post-info partial that we set up earlier to display the details for each post, and we're adding a link below it that will route users to a separate edit page (e.g., /dashboard/edit/1). --}}
-{{#if posts.length}}
-<section>
-  <h2>Your Posts</h2>
-  <ol>
-    {{#each posts as |post|}}
-    <li>
-      {{> post-info post}}
-      <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
-    </li>
-    {{/each}}
-  </ol>
-</section>
-{{/if}}
-
-<script src="/javascript/add-post.js"></script>
+<script src="/javascript/dashboard.js"></script>
