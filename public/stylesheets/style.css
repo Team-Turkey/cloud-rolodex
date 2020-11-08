@@ -80,7 +80,7 @@ body {
 }
 
 #sidebar-container .menu {
-  width: 15rem;
+  width: 18rem;
 }
 
 
@@ -186,6 +186,19 @@ body {
     border-top-right-radius: 0;
   }
 
+
+
+
+
+.card {
+width: 300px;
+}
+
+
+
+.form-control {
+  width: 60px;
+}
 /*
  * Footer
  */
@@ -193,6 +206,10 @@ body {
     font-size: 12px;
   color: #2C2B2C
 }
+
+
+
+
 
 
 
