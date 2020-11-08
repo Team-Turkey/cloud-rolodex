@@ -33,41 +33,41 @@ async function getAllUsers(event) {
 };
 
 function displayUsers(id) {
-    console.log("Display USers by ID", id)
+    console.log("Display Users per button pressed", id)
     if(id.length === 0) {
         usersContainerEl.textContent("No Users to  Display")
         return;
     }
+        // document.location.reload()
+    // // format the user name
+    // console.log(id.first_name)
+    // var userName = [id.first_name, id.last_name]
+    // console.log("userName", userName)
+    // // create a container for each repo
+    // var userEl = document.createElement("a")
+    
+    // userEl.classList = "list-item flex-row justify-space-between align-center";
+    // userEl.setAttribute("id", userName)
+    
 
-    // format the user name
-    console.log(id.first_name)
-    var userName = [id.first_name, id.last_name]
-    console.log("userName", userName)
-    // create a container for each repo
-    var userEl = document.createElement("a")
+    // // create a span element to hold repository name
+    // var titelEl = document.createElement("span");
     
-    userEl.classList = "list-item flex-row justify-space-between align-center";
-    userEl.setAttribute("id", userName)
+    // titelEl.textContent = userName;
     
-
-    // create a span element to hold repository name
-    var titelEl = document.createElement("span");
+    // // create a status element
+    // var statusEl = document.createElement("span");
     
-    titelEl.textContent = userName;
-    
-    // create a status element
-    var statusEl = document.createElement("span");
-    
-    statusEl.classList = "flex-row align-center";
+    // statusEl.classList = "flex-row align-center";
 
 
-    // append to container
-    userEl.appendChild(titelEl);
-    userEl.appendChild(statusEl);
+    // // append to container
+    // userEl.appendChild(titelEl);
+    // userEl.appendChild(statusEl);
     
-    // append container to the dom
-    console.log("user element", userEl)
-    usersContainerEl.appendChild(userEl);
+    // // append container to the dom
+    // console.log("user element", userEl)
+    // usersContainerEl.appendChild(userEl);
 }
 
 
@@ -96,7 +96,8 @@ function buttonClickHandler(event) {
     var id = event.target.getAttribute("id")
     if(id) {
         // sort by filter
-        console.log("id", id)
+        console.log("You pressed the number", id, " Department button")
+        
         getByDepartment(id)
     };
 };
