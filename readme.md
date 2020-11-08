@@ -35,13 +35,10 @@ Cloud Rolodex is an open source project, and anyone is encouraged to contribute 
 
 Developers who worked on this project are: 
 
-James Ellis: 
-https://github.com/je472000
-
 Octavio Garcia: Front-end
 https://github.com/octaviusg
 
-Seth Uschuck: Front-end
+Seth Uschuk: Front-end
 https://github.com/suschuk24
 
 Jeff Johnston: Back-end

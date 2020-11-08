@@ -19,7 +19,10 @@ router.get('/', (req, res) => {
             attributes: ['id', 'title', 'department_id'],
             
                 include: [{
-                    model: User
+                    model: User,
+                    attributes: {
+                        exclude: ['password']
+                      },
                 }]
             
         },
@@ -45,7 +48,10 @@ router.get('/', (req, res) => {
             attributes: ['id', 'title', 'department_id'],
             
                 include: [{
-                    model: User
+                    model: User,
+                    attributes: {
+                        exclude: ['password']
+                      },
                 }]
             
         },

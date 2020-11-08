@@ -1,0 +1,32 @@
+<html>
+  <body>
+
+    <h1>Edit your account</h1>
+
+    <hr>
+
+    <h2>Your avatar</h2>
+
+    <input type="file" id="file-input">
+    <p id="status">Please select a file</p>
+    <img style="border:1px solid gray;width:300px;"  id="preview" src="../public/images/default.png">
+
+    <h2>Your information</h2>
+
+    <form method="POST" action="/save-details">
+      <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
+      <input type="text" name="username" placeholder="Username"><br>
+      <input type="text" name="full-name" placeholder="Full name"><br><br>
+
+      <hr>
+      <h2>Save changes</h2>
+
+      <input type="submit" value="Update profile">
+    </form>
+
+
+  
+    <script src="/javascript/account.js"></script>
+   
+  </body>
+</html>

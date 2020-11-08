@@ -100,6 +100,7 @@ router.post('/login', (req, res) => {
   // A GET method carries the request parameter appended in the URL string, whereas a POST method carries the request parameter in req.body, which makes it a more secure way of transferring data from the client to the server. Remember, the password is still in plaintext, which makes this transmission process a vulnerable link in the chain.
   // Query operation
   // expects {email: 'lernantino@gmail.com', password: 'password1234'}
+  console.log("login route accessed")
   User.findOne({
     where: {
       email: req.body.email
@@ -112,7 +113,7 @@ router.post('/login', (req, res) => {
       return;
     }
 
-    //res.json({ user: dbUserData });
+ 
 
     // Verify user
     const validPassword = dbUserData.checkPassword(req.body.password);
@@ -122,11 +123,8 @@ router.post('/login', (req, res) => {
       });
       return;
     }
-
-    // res.json({
-    //   user: dbUserData,
-    //   message: 'You are now logged in!'
-    // });
+      //  res.json({ user: dbUserData });
+  
     req.session.save(() => {
       // declare session variables
       req.session.user_id = dbUserData.id;
@@ -137,7 +135,12 @@ router.post('/login', (req, res) => {
         user: dbUserData,
         message: 'You are now logged in!'
       });
-    });
+    })
+    
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
