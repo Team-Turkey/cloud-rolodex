@@ -42,13 +42,23 @@
           <div class="card">
           <h3 class="card-header text-uppercase">First Name{{first_name}} Last Name {{last_name}}</h3>
           <div class="card-body" id="department-buttons">
-            <a href="">{{phone}}Phone</a>
-            <a href="">{{email}}Email</a>
-            <a href="">{{role_id}}Department</a>
+            <a>Username: {{username}}</a><br>
+            <a href="">Phone: {{phone}}</a>
+            <a href="">Email: {{email}}</a>
+            <a href="">Department: {{role_id}}</a>
+        {{/each}}
+        <div id="users-container" class="list-group">
+          <div class="card">
+          <h3 class="card-header text-uppercase">Dummy Data</h3>
+          <div class="card-body" id="department-buttons">
+            <a>Username: dummy_user</a><br>
+            <a>Phone: 555-555-5555</a><br>
+            <a>Email: dummy@email.com</a><br>
+            <a>Department: dummy department</a><br>
           </div>
         </div>
         </div>
-        {{/each}}
+        
       </div>
   </div>
 </section>

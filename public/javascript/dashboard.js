@@ -32,42 +32,78 @@ async function getAllUsers(event) {
       }
 };
 
-function displayUsers(id) {
-    console.log("Display Users per button pressed", id)
-    if(id.length === 0) {
+function displayUsers(data, searchTerm) {
+    console.log("Display Users per button pressed", data)
+    if(data.length === 0) {
         usersContainerEl.textContent("No Users to  Display")
         return;
     }
-        // document.location.reload()
-    // // format the user name
-    // console.log(id.first_name)
-    // var userName = [id.first_name, id.last_name]
-    // console.log("userName", userName)
-    // // create a container for each repo
-    // var userEl = document.createElement("a")
-    
-    // userEl.classList = "list-item flex-row justify-space-between align-center";
-    // userEl.setAttribute("id", userName)
-    
 
-    // // create a span element to hold repository name
-    // var titelEl = document.createElement("span");
-    
-    // titelEl.textContent = userName;
-    
-    // // create a status element
-    // var statusEl = document.createElement("span");
-    
-    // statusEl.classList = "flex-row align-center";
+    usersContainerEl.textContent = ""
+    userSearchTerm.textContent = searchTerm
+   
+    // for(i = 0; i < data.length; i++) {
+       
+        console.log(data.first_name)
+         // format the user name
+        var userName = [data.first_name, data.last_name];
+        var email = [data.email];
+        var phone = [data.phone];
+        var department = [data.role_id];
 
 
-    // // append to container
-    // userEl.appendChild(titelEl);
-    // userEl.appendChild(statusEl);
+        
+        // create a container for each user
+        var userEl = document.createElement("a")
+        var phoneEl = document.createElement("a")
+        var emailEl = document.createElement("a")
+        var departmentEl = document.createElement("a")
+        
+        userEl.classList = "list-item flex-row justify-space-between align-center";
+        phoneEl.classList = "list-item flex-row justify-space-between align-center";
+        emailEl.classList = "list-item flex-row justify-space-between align-center";
+        departmentEl.classList = "list-item flex-row justify-space-between align-center";
+
+        userEl.setAttribute("id", userName)
+        phoneEl.setAttribute("id", phone)
+        emailEl.setAttribute("id", email)
+        departmentEl.setAttribute("id", department)
     
-    // // append container to the dom
-    // console.log("user element", userEl)
-    // usersContainerEl.appendChild(userEl);
+        // create a span element to hold content
+        var titelEl = document.createElement("span");
+        var phoneTextEl = document.createElement("span")
+        var emailTextEl = document.createElement("span")
+        var departmentTextEl = document.createElement("span")
+
+        console.log("username being loaded", userName)
+        console.log("phone being loaded", phone)
+        console.log("email being loaded", email)
+        console.log("department being loaded", department)
+
+        // assign elements to text content
+        titelEl.textContent = userName;
+        phoneTextEl.textContent = phone
+        emailTextEl.textContent = email
+        departmentTextEl.textContent = email
+
+        // create a status element
+        // var statusEl = document.createElement("span");
+        
+        // statusEl.classList = "flex-row align-center";
+
+
+        // append html elements to container
+        userEl.appendChild(titelEl);
+        phoneEl.appendChild(phoneTextEl)
+        emailEl.appendChild(emailTextEl);
+        departmentEl.appendChild(departmentTextEl);
+        // userEl.appendChild(statusEl);
+        
+        // append container to the dom
+        
+        usersContainerEl.appendChild(userEl, phoneEl, emailEl, departmentEl);
+        console.log("users container element", usersContainerEl)
+    // }
 }
 
 
@@ -84,7 +120,9 @@ async function getByDepartment(id) {
     if (response.ok) {
         console.log(response.body)
         response.json().then((data) => {
-            displayUsers(data, id)
+            console.log("data", data)
+            displayUsers(data)
+            // document.location.reload()
         })
       } else {
         alert(response.statusText);
