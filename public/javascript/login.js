@@ -2,8 +2,7 @@
 async function loginFormHandler(event) {
     event.preventDefault();
 
-    const id = window.location.toString().split('/')[
-        window.location.toString().split('/').length - 1];
+    
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
 
@@ -12,17 +11,31 @@ async function loginFormHandler(event) {
             method: 'post',
             body: JSON.stringify({
                 email,
-                password
+                password,
+                
             }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        console.log("ID", id);
-        console.log("RESPONSE", response)
+        
+        // console.log("RESPONSE", response);
         if (response.ok) {
-            
-            document.location.replace(`/dashboard/${id}`);
+            // const reply = await fetch('/api/users/:id', {
+            //     where: {
+            //         id: session.user_id
+            //     },
+            //     method: 'get',
+            //     body: JSON.stringify({
+            //         id
+            //     }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // console.log("ID", dbUserData);
+            console.log("RESPONSE", response);
+            document.location.replace(`/dashboard`);
         } else {
             alert(response.statusText);
         }
