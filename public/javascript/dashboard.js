@@ -101,7 +101,7 @@ function buttonClickHandler(event) {
 
 // function UpdateButtonClickHandler(event) {
 //     event.preventDefault()
-//     document.location.replace('/account')
+//     document.location.replace('/edit-user')
 // }
 
 // async function editFormHandler(event) {

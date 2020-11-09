@@ -24,7 +24,7 @@ async function editFormHandler(event) {
     });
     console.log(response);
     if (response.ok) {
-        document.location.replace('/account/');
+        document.location.replace('/edit-user/');
         
     } else {
         alert(response.statusText);

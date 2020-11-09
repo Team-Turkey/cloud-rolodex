@@ -1,37 +1,44 @@
-<article>
-  <a href="/dashboard"> &larr; Back to dashboard</a>
-  <h2>
-    Edit Post
-  </h2>
-  <form class="edit-post-form">
-    <div>
-      <input name="post-title" type="text" value="{{post.title}}" />
-      <span>({{format_url post.post_url}})</span>
-    </div>
-    <div>
-      {{post.vote_count}} {{format_plural "point" post.vote_count}} by you on {{format_date post.created_at}}
-      |
-      <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
-    </div>
-    <button type="submit">Save post</button>
-    <button type="button" class="delete-post-btn">Delete post</button>
-  </form>
-</article>
+<html>
+  <body>
+      {{#if loggedIn}}
+    <h1>Edit your account</h1>
 
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
+    <hr>
 
-  <div>
-    <button type="submit">add comment</button>
-  </div>
-</form>
+    <h2>Your avatar</h2>
 
-{{> comments post.comments}}
+    <input type="file" id="file-input">
+    <p id="status">Please select a file</p>
+    <img style="border:1px solid gray;width:300px;"  id="preview" src="../public/images/default.png">
 
-{{#if loggedIn}}
-<script src="/javascript/edit-post.js"></script>
-<script src="/javascript/delete-post.js"></script>
-<script src="/javascript/comment.js"></script>
-{{/if}}
+    <h2>Your information</h2>
+
+    <form method="POST" action="/save-details">
+      <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
+      <input type="text" name="first-name" placeholder="First Name"><br>
+      <input type="text" name="last-name" placeholder="Last Name"><br>
+      <input type="text" name="phone" placeholder="phone"><br>
+      <input type="text" name="email" placeholder="email"><br>
+      <label for="department">Please Select your Department:</label><br>
+
+      <select name="departments" id="departments">
+        <option value="Sales">Sales</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Finance">Finance</option>
+        <option value="Legal">Legal</option>
+        <option value="Sanitation">Sanitation</option>
+      </select>
+      <br>
+
+      <h2>Save changes</h2>
+
+      <button class="btn" id="update-btn">Update Profile</button>
+    </form>
+    {{else}}
+    <h1 href="/login">Unable to edit information, You are not logged in</h1>
+    {{/if}}
+
+    <script src="/javascript/edit-user.js"></script>
+   
+  </body>
+</html>

@@ -8,10 +8,10 @@ const {
 const withAuth = require('../utils/auth');
 
 /*
- * Respond to GET requests to /account.
- * Upon request, render the 'account.handlebars' web page in views/ directory.
+ * Respond to GET requests to /edit-user.
+ * Upon request, render the 'edit-user.handlebars' web page in views/ directory.
  */
-router.get('/', withAuth, (req, res) => res.render('account', {loggedIn: true}));
+router.get('/', withAuth, (req, res) => res.render('edit-user', {loggedIn: true}));
 
 /*
  * Respond to GET requests to /sign-s3.

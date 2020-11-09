@@ -33,11 +33,11 @@ router.get('/:id', (req, res) => {
     })
     .then(dbUserData => {
       // serialize data before passing to template
-      const account = dbUserData.get({
+      const user = dbUserData.get({
         plain: true
       });
       res.render('dashboard', {
-          account,
+          user,
           loggedIn: true
       });
   })
@@ -73,7 +73,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
       });
       console.log("USER", user);
       // pass data to template
-      res.render('account', {
+      res.render('edit-user', {
           user,
           loggedIn: req.session.loggedIn
       });
