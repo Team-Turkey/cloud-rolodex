@@ -1,4 +1,5 @@
-
+<html>
+  <body>
       {{#if loggedIn}}
     <h1>Edit your account</h1>
 
@@ -14,17 +15,32 @@
 
     <form method="POST" action="/save-details">
       <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
-      <input type="text" name="username" placeholder="Username"><br>
-      <input type="text" name="full-name" placeholder="Full name"><br><br>
+      <input type="text" name="first-name" placeholder="First Name"><br>
+      <input type="text" name="last-name" placeholder="Last Name"><br>
+      <input type="text" name="phone" placeholder="phone"><br>
+      <input type="text" name="email" placeholder="email"><br>
+      <label for="department">Please Select your Department:</label><br>
 
-      <hr>
+      <select name="departments" id="departments">
+        <option value="Sales">Sales</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Finance">Finance</option>
+        <option value="Legal">Legal</option>
+        <option value="Sanitation">Sanitation</option>
+      </select>
+      <br>
+
       <h2>Save changes</h2>
 
-      <button class="btn" id="update-btn" type="submit">Update Profile</button>
+      <button class="btn" id="update-btn">Update Profile</button>
     </form>
-
+    {{else}}
+    <h1 href="/login">Unable to edit information, You are not logged in</h1>
+    {{/if}}
 
   
     <script src="/javascript/account.js"></script>
     <script src="/javascript/edit-user.js"></script>
    
+  </body>
+</html>

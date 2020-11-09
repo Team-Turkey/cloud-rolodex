@@ -71,7 +71,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
       const user = dbUserData.get({
           plain: true
       });
-      console.log("DATA", user);
+      console.log("USER", user);
       // pass data to template
       res.render('account', {
           user,
