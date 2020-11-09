@@ -8,12 +8,10 @@ const {
 const withAuth = require('../utils/auth');
 
 /*
- * Respond to GET requests to /account.
- * Upon request, render the 'account.handlebars' web page in views/ directory.
+ * Respond to GET requests to /edit-user.
+ * Upon request, render the 'edit-user.handlebars' web page in views/ directory.
  */
-router.get('/', withAuth, (req, res) => {
-  res.render('account', {loggedIn: true});
-})
+router.get('/', withAuth, (req, res) => res.render('edit-user', {loggedIn: true}));
 
 /*
  * Respond to GET requests to /sign-s3.
@@ -92,4 +90,37 @@ router.get('/sign-s3', (req, res) => {
     // TODO: Read POSTed form data and do something useful
   });
 
+  router.get('/edit/:id', withAuth, (req, res) => {
+    User.findOne(req.body, {
+      
+        where: {
+          id: req.session.id
+        }
+      })
+      // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
+      .then(dbUserData => {
+        if (!dbUserData) {
+          res.status(404).json({
+              message: 'No user found with this id'
+          });
+          return;
+      }
+         // res.json(dbUserData);
+        // })
+        const user = dbUserData.get({
+            plain: true
+        });
+
+        // pass data to template
+        res.render('dashboard', {
+            user,
+            loggedIn: req.session.loggedIn
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+     
+  });
   module.exports = router;
