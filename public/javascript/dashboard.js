@@ -98,6 +98,42 @@ function buttonClickHandler(event) {
         usersContainerEl.textContent = "";
     };
 };
-userFormEl.addEventListener("submit", formSubmitHandler)
-languageButtonsEl.addEventListener("click", buttonClickHandler);
 
+// function UpdateButtonClickHandler(event) {
+//     event.preventDefault()
+//     document.location.replace('/account')
+// }
+
+// async function editFormHandler(event) {
+//     event.preventDefault();
+
+//     const id = window.location.toString().split('/')[
+//         window.location.toString().split('/').length - 1];
+//     console.log(id);
+
+//     const title = document.querySelector('input[name="post-title"]').value.trim();
+
+//     const blog_text = document.querySelector('textarea[name="blog-body"]').value.trim();
+
+//     const response = await fetch(`/api/posts/${id}`, {
+//         method: 'PUT',
+//         body: JSON.stringify({
+//             title,
+//             blog_text
+//         }),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     });
+//     console.log(response);
+//     if (response.ok) {
+//         document.location.replace('/dashboard/');
+//     } else {
+//         alert(response.statusText);
+//     }
+// }
+
+
+// userFormEl.addEventListener("submit", formSubmitHandler)
+// departmentButtonsEl.addEventListener("click", buttonClickHandler);
+// document.querySelector('#search-all-users').addEventListener("click", getAllUsers)

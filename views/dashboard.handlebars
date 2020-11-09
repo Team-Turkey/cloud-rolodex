@@ -1,7 +1,8 @@
 <section>
-  <main class="flex-row justify-space-between">
+  <div class="flex-row justify-space-between">
       <div class="col-12 col-md-4">
         <div class="card">
+           <h1>{{account.id}}</h1>
           <h3 class="card-header text-uppercase">Search By Name</h3>
           <form id="user-form" class="card-body">
             <label class="form-label" for="first-name">First Name</label>
@@ -25,7 +26,8 @@
           <h3 class="card-header text-uppercase">Update Your Information</h3>
           <div class="card-body" id="update-button">
             <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
-            <button class="btn" department="Sanitation">Update Info</button>
+            <a class="btn" id="update-btn" href="/dashboard/edit/{{account.id}}
+            ">Update Info</a>
           </div>
         </div>
       </div>
@@ -33,7 +35,8 @@
         <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
         <div id="users-container" class="list-group"></div>
       </div>
-  </main>
+  </div>
 </section>
 
 <script src="/javascript/dashboard.js"></script>
+<script src="/javascript/edit-user.js"></script>

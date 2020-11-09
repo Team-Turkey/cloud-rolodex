@@ -2,6 +2,8 @@
 async function loginFormHandler(event) {
     event.preventDefault();
 
+    const id = window.location.toString().split('/')[
+        window.location.toString().split('/').length - 1];
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
 
@@ -16,9 +18,11 @@ async function loginFormHandler(event) {
                 'Content-Type': 'application/json'
             }
         });
-
+        console.log("ID", id);
+        console.log("RESPONSE", response)
         if (response.ok) {
-            document.location.replace('/dashboard');
+            
+            document.location.replace(`/dashboard/${id}`);
         } else {
             alert(response.statusText);
         }
