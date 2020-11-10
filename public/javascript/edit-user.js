@@ -20,8 +20,8 @@ async function editFormHandler(event) {
             first_name,
             last_name,
             phone,
-            email
-            // password
+            email,
+      
         }),
         headers: {
             'Content-Type': 'application/json'

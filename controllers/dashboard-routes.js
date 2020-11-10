@@ -84,14 +84,12 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/edit/:id', withAuth, (req, res) => {
-  User.findOne({
-    
+  User.findOne(req.body, {
+    individualHooks: true,
       where: {
         id: req.params.id
       },
-      attributes: [
-        'id'
-      ]
+     
     })
     // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
     .then(dbUserData => {
