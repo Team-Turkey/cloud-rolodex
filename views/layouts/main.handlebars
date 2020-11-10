@@ -11,11 +11,20 @@
 <body>
     <div>
        <header>
+<<<<<<< HEAD
     <h1>
         <a class="app-title" href="/dashboard">Cloud Rolodex</a>
     </h1>
     <nav>
   {{#if loggedIn}}
+=======
+           <h1>
+        <a href="/" class="app-title">Cloud Rolodex</a>
+    </h1>
+    <nav>
+  {{#if loggedIn}}
+   <a class="app-title" href="/dashboard">dashboard</a>
+>>>>>>> 7cc413b62a0b7e77f7476e7499c604efb4e7b164
   <button id="logout" class="btn-no-style">logout</button>
   {{else}}
   <a href="/login">login</a>
@@ -26,7 +35,7 @@
             {{{ body }}}
         </main>
         <footer>
-            Thanks for visiting!
+            Team Turkey
         </footer>
     </div>
 

@@ -1,0 +1,46 @@
+<html>
+  <body>
+      {{#if loggedIn}}
+    <h1>Edit your account</h1>
+
+    <hr>
+
+    <h2>Your avatar</h2>
+
+    <input type="file" id="file-input">
+    <p id="status">Please select a file</p>
+    <img style="border:1px solid gray;width:300px;"  id="preview" src="../public/images/default.png">
+
+    <h2>Your information</h2>
+
+    {{!-- <form method="POST" action="/save-details"> --}}
+    <form id="edit-user-form" class="edit-user-form">
+      <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
+      <input id="first-name" type="text" name="first-name" placeholder="First Name"><br>
+      <input id="last-name" type="text" name="last-name" placeholder="Last Name"><br>
+      <input id="phone" type="text" name="phone" placeholder="phone"><br>
+      <input id="email" type="text" name="email" placeholder="email"><br>
+      {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
+      {{!-- <label for="department">Please Select your Department:</label><br> --}}
+
+      {{!-- <select name="department" id="department">
+        <option value="Sales">Sales</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Finance">Finance</option>
+        <option value="Legal">Legal</option>
+        <option value="Sanitation">Sanitation</option>
+      </select> --}}
+      <br>
+
+      <h2>Save changes</h2>
+
+      <button class="btn" id="update-btn" type="submit">Update Profile</button>
+    </form>
+    {{else}}
+    <h1 href="/login">Unable to edit information, You are not logged in</h1>
+    {{/if}}
+
+    <script src="/javascript/edit-user.js"></script>
+   
+  </body>
+</html>
