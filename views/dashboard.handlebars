@@ -2,7 +2,7 @@
   <div class="flex-row justify-space-between">
       <div class="col-12 col-md-4">
         <div class="card">
-           <h1>{{id}}</h1>
+           <h1></h1>
           <h3 class="card-header text-uppercase">Search By Name</h3>
           <form id="user-form" class="card-body">
             <label class="form-label" for="first-name">First Name</label>
@@ -21,7 +21,7 @@
           <h3 class="card-header text-uppercase">Search Employees By Department</h3>
           <div class="card-body" id="department-buttons">
             {{#each users as |user| }}
-            <button class="btn" department="{{role.department.name}}" id="{{role.department.id}}">{{role.department.name}}</button>
+            {{> user-info-button user}}
             {{/each}}
 
           </div>
@@ -37,11 +37,9 @@
         </div>
       </div>
       <div class="col-12 col-md-8">
-        
-        <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
         {{#each users as |user| }}
+        <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
         {{> user-info user}}
-            
         {{/each}}
       </div>
   </div>
