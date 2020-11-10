@@ -11,11 +11,35 @@ router.get('/', withAuth, (req, res) => {
   console.log("REQ", req);
   console.log("SESSION", req.session.user_id);
   const id = req.session.user_id;
-    res.render('dashboard', {
-      id,
-      loggedIn: true
-    });
+
+  User.findAll({
+    attributes: {
+      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+      exclude: ['password']
+    },
+    include: [{
+      model: Role,
+      attributes: ["id", "title", "department_id"],
+      include: {
+        model: Department,
+        attributes: ["name"]
+      },
+    },
+  ]
 })
+  .then((dbPostData) => {
+    const users = dbPostData.map((user) => user.get({plain: true}))
+    
+    res.render('dashboard', { 
+      id,
+      users, 
+      loggedIn: true});
+  })
+  .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+  });
+})    
 
 
 router.get('/:id', (req, res) => {
@@ -41,11 +65,23 @@ router.get('/:id', (req, res) => {
           loggedIn: true
       });
   })
-  .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-  });
-});
+})
+
+
+// router.get('/:id', withAuth, (req, res) => {
+//   Department.findAll({
+//     attributes: ["id", "name"]
+// })
+//   .then((dbPostData) => {
+//     const departments = dbPostData.map((department) => department.get({plain: true}))
+//     res.render('dashboard', {departments, loggedIn: true});
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     res.status(500).json(err);
+//   });
+// })
+
 
 router.get('/edit/:id', withAuth, (req, res) => {
   User.findOne({

@@ -20,9 +20,8 @@
         <div class="card">
           <h3 class="card-header text-uppercase">Search Employees By Department</h3>
           <div class="card-body" id="department-buttons">
-            {{#each departments as |department|}}
-            {{> user-info-button department}}
-            
+            {{#each users as |user| }}
+            <button class="btn" department="{{role.department.name}}" id="{{role.department.id}}">{{role.department.name}}</button>
             {{/each}}
 
           </div>
@@ -32,39 +31,18 @@
           <h3 class="card-header text-uppercase">Update Your Information</h3>
           <div class="card-body" id="update-button">
             <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
-<<<<<<< HEAD
-            <button class="btn" id="update-btn" href="/dashboard/account">Update Info</button>
-=======
             <a class="btn" id="update-btn" href="/dashboard/edit/{{id}}
             ">Update Info</a>
->>>>>>> b4c70f0c668bfc424a335a9d58fd3a2be7766ce4
           </div>
         </div>
       </div>
       <div class="col-12 col-md-8">
-        <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
-        {{#each users as |user| }}
-        <div id="users-container" class="list-group">
-          <div class="card">
-          <h3 class="card-header text-uppercase">First Name{{first_name}} Last Name {{last_name}}</h3>
-          <div class="card-body" id="department-buttons">
-            <a>Username: {{username}}</a><br>
-            <a href="">Phone: {{phone}}</a>
-            <a href="">Email: {{email}}</a>
-            <a href="">Department: {{role_id}}</a>
-        {{/each}}
-        <div id="users-container" class="list-group">
-          <div class="card">
-          <h3 class="card-header text-uppercase">Dummy Data</h3>
-          <div class="card-body" id="department-buttons">
-            <a>Username: dummy_user</a><br>
-            <a>Phone: 555-555-5555</a><br>
-            <a>Email: dummy@email.com</a><br>
-            <a>Department: dummy department</a><br>
-          </div>
-        </div>
-        </div>
         
+        <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
+        {{#each users as |user| }}
+        {{> user-info user}}
+            
+        {{/each}}
       </div>
   </div>
 </section>
