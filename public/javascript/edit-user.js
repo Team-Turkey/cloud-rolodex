@@ -9,7 +9,7 @@ async function editFormHandler(event) {
     const last_name = document.querySelector('input[name="last-name"]').value.trim();
     const phone = document.querySelector('input[name="phone"]').value.trim();
     const email = document.querySelector('input[name="email"]').value.trim();
-    const password = document.querySelector('input[name="password"]').value.trim();
+    // const password = document.querySelector('input[name="password"]').value.trim();
     // const role_id = document.querySelector('select[name="role_id"]').value.trim();
 
     const response = await fetch(`/api/users/${id}`, {
@@ -20,8 +20,8 @@ async function editFormHandler(event) {
             first_name,
             last_name,
             phone,
-            email,
-            password
+            email
+            // password
         }),
         headers: {
             'Content-Type': 'application/json'

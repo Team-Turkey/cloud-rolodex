@@ -18,9 +18,10 @@ async function loginFormHandler(event) {
                 'Content-Type': 'application/json'
             }
         });
-        
-        // console.log("RESPONSE", response);
         if (response.ok) {
+
+            document.location.replace('/dashboard');
+
             // const reply = await fetch('/api/users/:id', {
             //     where: {
             //         id: session.user_id
