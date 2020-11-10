@@ -18,23 +18,7 @@ async function loginFormHandler(event) {
                 'Content-Type': 'application/json'
             }
         });
-        
-        // console.log("RESPONSE", response);
         if (response.ok) {
-            // const reply = await fetch('/api/users/:id', {
-            //     where: {
-            //         id: session.user_id
-            //     },
-            //     method: 'get',
-            //     body: JSON.stringify({
-            //         id
-            //     }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // console.log("ID", dbUserData);
-            console.log("RESPONSE", response);
             document.location.replace(`/dashboard`);
         } else {
             alert(response.statusText);

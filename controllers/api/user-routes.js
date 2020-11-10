@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   // Access our User model and run .findAll() method)
   User.findAll({
       attributes: {
-        exclude: ['password']
+        // exclude: ['password']
       },
       include: [{
         model: Role,
@@ -78,12 +78,6 @@ router.post('/', (req, res) => {
       email: req.body.email,
       password: req.body.password
     })
-    //         .then(dbUserData => res.json(dbUserData))
-    //         .catch(err => {
-    //             console.log(err);
-    //             res.status(500).json(err);
-    //         });
-    // });
     // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
     .then(dbUserData => {
       req.session.save(() => {

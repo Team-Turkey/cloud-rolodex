@@ -1,15 +1,18 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-// const {
-//     User,
-//     Department,
-//     Role
-// } = require('../models');
+const {
+    User,
+    Department,
+    Role
+} = require('../models');
 
 
 router.get('/', (req, res) => {
-  res.render('homepage');
-});
+  console.log("SESSION", req.session);
+      res.render('homepage', {
+          loggedIn: req.session.loggedIn
+      });
+  });
 
 // router.get('/login', (req, res) => {
 //     res.render('login');
