@@ -14,13 +14,13 @@
     <h2>Your information</h2>
 
     {{!-- <form method="POST" action="/save-details"> --}}
-    <form class="edit-user-form">
+    <form id="edit-user-form" class="edit-user-form">
       <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
-      <input type="text" name="first-name" placeholder="First Name"><br>
-      <input type="text" name="last-name" placeholder="Last Name"><br>
-      <input type="text" name="phone" placeholder="phone"><br>
-      <input type="text" name="email" placeholder="email"><br>
-      <input type="text" name="password" placeholder="password"><br>
+      <input id="first-name" type="text" name="first-name" placeholder="First Name"><br>
+      <input id="last-name" type="text" name="last-name" placeholder="Last Name"><br>
+      <input id="phone" type="text" name="phone" placeholder="phone"><br>
+      <input id="email" type="text" name="email" placeholder="email"><br>
+      {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
       {{!-- <label for="department">Please Select your Department:</label><br> --}}
 
       {{!-- <select name="department" id="department">
