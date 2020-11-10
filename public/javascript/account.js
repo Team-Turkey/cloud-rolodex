@@ -1,7 +1,7 @@
-  /*
+     /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
     */
-function uploadFile(file, signedRequest, url){
+   function uploadFile(file, signedRequest, url){
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
     xhr.onreadystatechange = () => {
@@ -26,7 +26,6 @@ function uploadFile(file, signedRequest, url){
   function getSignedRequest(file){
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
-    // If the name (file.name) and/or mime type (file.type) of the file you upload contains special characters (such as spaces), then they should be encoded first (e.g. encodeURIComponent(file.name)).
     xhr.onreadystatechange = () => {
       if(xhr.readyState === 4){
         if(xhr.status === 200){
@@ -53,7 +52,6 @@ function uploadFile(file, signedRequest, url){
     }
     getSignedRequest(file);
   }
-
 
   /*
    Bind listeners when the page loads.

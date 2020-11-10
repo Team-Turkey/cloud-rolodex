@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
+const aws = require('aws-sdk');
 const {
     User,
     Department,
     Role
 } = require('../models');
 const withAuth = require('../utils/auth');
+const S3_BUCKET = process.env.S3_BUCKET;
 
 router.get('/', withAuth, (req, res) => {
   console.log("REQ", req);
@@ -118,40 +120,51 @@ router.get('/edit/:id', withAuth, (req, res) => {
   });
    
 });
-// router.put('/', withAuth, (req, res) => {
-//     User.update(req.body, {
-//         individualHooks: true,
-//         where: {
-//           id: req.params.id
-//         }
-//       })
-//       // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
-//       .then(dbUserData => {
-//         req.session.save(() => {
-//           req.session.user_id = dbUserData.id;
-//           req.session.username = dbUserData.username;
-//           req.session.loggedIn = true;
-  
-//           res.json(dbUserData);
-//         })
-//         const post = dbUserData.get({
-//             plain: true
-//         });
 
-//         // pass data to template
-//         res.render('dashboard', {
-//             post,
-//             loggedIn: req.session.loggedIn
-//         });
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         res.status(500).json(err);
-//     });
-     
-//   });
 
-  module.exports = router;
+/*
+ * Respond to GET requests to /sign-s3.
+ * Upon request, return JSON containing the temporarily-signed S3 request and
+ * the anticipated URL of the image.
+ */
+router.get('/sign-s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
+});
+
+/*
+ * Respond to POST requests to /submit_form.
+ * This function needs to be completed to handle the information in
+ * a way that suits your application.
+ */
+router.post('/save-details', (req, res) => {
+  console.log("S3", req);
+  // TODO: Read POSTed form data and do something useful
+});
+
+
+module.exports = router;
   
 // router.get('/', (req, res) => {
 //     res.render('dashboard', { loggedIn: true });

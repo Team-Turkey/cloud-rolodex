@@ -13,14 +13,16 @@
 
     <h2>Your information</h2>
 
-    {{!-- <form method="POST" action="/save-details"> --}}
+    <form method="POST" action="/save-details">
     <form id="edit-user-form" class="edit-user-form">
-      <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
+      <input type="hidden" id="avatar-url" name="avatar-url" value="images/default.png">
+      <input id="username" type="text" name="username" placeholder="Username"><br>
+      {{!-- <input id="role-id" type="number" name="role-id" placeholder="Role ID"><br>
       <input id="first-name" type="text" name="first-name" placeholder="First Name"><br>
       <input id="last-name" type="text" name="last-name" placeholder="Last Name"><br>
       <input id="phone" type="text" name="phone" placeholder="phone"><br>
       <input id="email" type="text" name="email" placeholder="email"><br>
-      {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
+      <input id="password" type="text" name="password" placeholder="password"><br> --}}
       {{!-- <label for="department">Please Select your Department:</label><br> --}}
 
       {{!-- <select name="department" id="department">
@@ -40,7 +42,7 @@
     <h1 href="/login">Unable to edit information, You are not logged in</h1>
     {{/if}}
 
-    <script src="/javascript/edit-user.js"></script>
-   
+    {{!-- <script src="/javascript/edit-user.js"></script> --}}
+    <script src="/javascript/account.js"></script>
   </body>
 </html>

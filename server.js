@@ -2,7 +2,7 @@ const express = require('express');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
-// const aws = require('aws-sdk');
+const aws = require('aws-sdk');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -53,7 +53,7 @@ sequelize.sync({ force: false }).then(() => {
 // The other thing to notice is the use of {force: false} in the .sync() method. This doesn't have to be included, but if it were set to true, it would drop and re-create all of the database tables on startup. This is great for when we make changes to the Sequelize models, as the database would need a way to understand that something has changed. We'll have to do that a few times throughout this project, so it's best to keep the {force: false} there for now.
 
 // Configure the AWS region of the target bucket.
-// aws.config.region = 'us-east-2';
+aws.config.region = 'us-east-2';
 
 // Load the S3 information from the environment variables.
 const S3_BUCKET = process.env.S3_BUCKET;

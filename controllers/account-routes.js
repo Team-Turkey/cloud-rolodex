@@ -6,7 +6,7 @@ const {
     Role
 } = require('../models');
 const withAuth = require('../utils/auth');
-
+const S3_BUCKET = process.env.S3_BUCKET;
 /*
  * Respond to GET requests to /edit-user.
  * Upon request, render the 'edit-user.handlebars' web page in views/ directory.
