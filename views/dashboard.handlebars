@@ -19,9 +19,8 @@
         <div class="card">
           <h3 class="card-header text-uppercase">Search Employees By Department</h3>
           <div class="card-body" id="department-buttons">
-            {{#each departments as |department|}}
-            {{> user-info-button department}}
-            
+            {{#each users as |user| }}
+            <button class="btn" department="{{role.department.name}}" id="{{role.department.id}}">{{role.department.name}}</button>
             {{/each}}
 
           </div>
@@ -36,18 +35,11 @@
         </div>
       </div>
       <div class="col-12 col-md-8">
-        <h2 class="subtitle">Showing Results for for: <span id="user-search-term"></span></h2>
+        
+        <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
         {{#each users as |user| }}
-        <div id="users-container" class="list-group">
-          <div class="card">
-          <h3 class="card-header text-uppercase">First Name{{first_name}} Last Name {{last_name}}</h3>
-          <div class="card-body" id="department-buttons">
-            <a href="">{{phone}}Phone</a>
-            <a href="">{{email}}Email</a>
-            <a href="">{{role_id}}Department</a>
-          </div>
-        </div>
-        </div>
+        {{> user-info user}}
+            
         {{/each}}
       </div>
   </div>

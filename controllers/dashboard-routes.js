@@ -8,12 +8,27 @@ const {
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, (req, res) => {
-  Department.findAll({
-    attributes: ["id", "name"]
-  })
+  User.findAll({
+    attributes: {
+      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+      exclude: ['password']
+    },
+    include: [{
+      model: Role,
+      attributes: ["id", "title", "department_id"],
+      include: {
+        model: Department,
+        attributes: ["name"]
+      },
+    },
+  ]
+})
   .then((dbPostData) => {
-    const departments = dbPostData.map((department) => department.get({plain: true}))
-    res.render('dashboard', {departments, loggedIn: true });
+    const users = dbPostData.map((user) => user.get({plain: true}))
+    
+    res.render('dashboard', { 
+      users, 
+      loggedIn: true});
   })
   .catch(err => {
     console.log(err);
@@ -21,37 +36,20 @@ router.get('/', withAuth, (req, res) => {
   });
 })
 
+// router.get('/:id', withAuth, (req, res) => {
+//   Department.findAll({
+//     attributes: ["id", "name"]
+// })
+//   .then((dbPostData) => {
+//     const departments = dbPostData.map((department) => department.get({plain: true}))
+//     res.render('dashboard', {departments, loggedIn: true});
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     res.status(500).json(err);
+//   });
+// })
 
-router.get('/', (req, res) => {
-  // Access our User model and run .findAll() method)
-  
-  User.findAll({
-    attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email'],
-      exclude: ['password']
-    },
-    include: [{
-      model: Role,
-      attributes: {
-        exclude: ['createdAt', 'updatedAt']
-      
-    
-      }
-    },
-  ]
-    // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
-  })
-  .then(dbUserData => {
-    const users = dbUserData.map((user) => user.get({plain: true}))
-    res.render('dashboard', {users, loggedIn: true})
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
-    
-  
-});
 
 router.put('/', withAuth, (req, res) => {
     User.update(req.body, {
