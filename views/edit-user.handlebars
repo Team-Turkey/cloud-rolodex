@@ -15,18 +15,18 @@
 
     {{!-- <form method="POST" action="/save-details"> --}}
     <form id="edit-user-form" class="edit-user-form">
-      <input type="hidden" id="avatar-url" name="avatar-url" value="../public/images/default.png">
-      <input id="first-name" type="text" name="first-name" placeholder="First Name"><br>
-      <input id="last-name" type="text" name="last-name" placeholder="Last Name"><br>
-      <input id="phone" type="text" name="phone" placeholder="phone"><br>
-      <input id="email" type="text" name="email" placeholder="email"><br>
+      <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
+      <input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}"><br>
+      <input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}"><br>
+      <input id="phone" type="text" name="phone" placeholder="phone" value="{{user.phone}}"><br>
+      <input id="email" type="text" name="email" placeholder="email" value={{user.email}}><br>
       {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
-      {{!-- <label for="department">Please Select your Department:</label><br> --}}
+      {{!-- <label for="role">Please Select your Role:</label><br> --}}
 
-      {{!-- <select name="department" id="department">
+      {{!-- <select name="role" id="role">
         <option value="Sales">Sales</option>
-        <option value="Engineering">Engineering</option>
-        <option value="Finance">Finance</option>
+        <option value="Engineer">Engineering</option>
+        <option value="Accountant">Finance</option>
         <option value="Legal">Legal</option>
         <option value="Sanitation">Sanitation</option>
       </select> --}}
