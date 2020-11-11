@@ -2,9 +2,9 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const aws = require('aws-sdk');
 const {
-    User,
-    Department,
-    Role
+  User,
+  Department,
+  Role
 } = require('../models');
 const withAuth = require('../utils/auth');
 const S3_BUCKET = process.env.S3_BUCKET;
@@ -272,13 +272,13 @@ router.get('/:id', (req, res) => {
   // Access our User model and run .findAll() method)
   User.findOne({
 
-    where: {
-      id: req.session.user_id
-    },
+      where: {
+        id: req.session.user_id
+      },
       attributes: {
         exclude: ['password']
       },
-      
+
       // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
     })
     .then(dbUserData => {
@@ -287,10 +287,10 @@ router.get('/:id', (req, res) => {
         plain: true
       });
       res.render('dashboard', {
-          user,
-          loggedIn: true
+        user,
+        loggedIn: true
       });
-  })
+    })
 })
 
 
@@ -310,39 +310,40 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/edit/:id', withAuth, (req, res) => {
-  User.findOne(req.body, {
-    individualHooks: true,
+  console.log("REQ", req.params);
+  User.findOne({
+      individualHooks: true,
       where: {
         id: req.params.id
       },
-     
+
     })
     // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
     .then(dbUserData => {
       if (!dbUserData) {
         res.status(404).json({
-            message: 'No user found with this id'
+          message: 'No user found with this id'
         });
         return;
-    }
-    console.log("DATA", dbUserData);
-       // res.json(dbUserData);
+      }
+      console.log("DATA", dbUserData);
+      // res.json(dbUserData);
       // })
       const user = dbUserData.get({
-          plain: true
+        plain: true
       });
       console.log("USER", user);
       // pass data to template
       res.render('edit-user', {
-          user,
-          loggedIn: req.session.loggedIn
+        user,
+        loggedIn: req.session.loggedIn
       });
-  })
-  .catch(err => {
+    })
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
-  });
-   
+    });
+
 });
 
 
@@ -491,3 +492,4 @@ module.exports = router;
 //         });
 // });
 
+// "$2b$10$92WspQnDvAnk3gr.4zhxaOleNvU4AXGi0DkgZollzqQwBw5kTd8x2",

@@ -15,20 +15,20 @@ async function editFormHandler(event) {
     const response = await fetch(`/api/users/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-            username,
-            role_id,
+            // username,
+            // role_id,
             first_name,
             last_name,
             phone,
             email,
-            password
+         
       
         }),
         headers: {
             'Content-Type': 'application/json'
         }
     });
-    console.log(response);
+    console.log("EDIT-USER RES:", response);
     if (response.ok) {
         document.location.replace('/dashboard/');
         

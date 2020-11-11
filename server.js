@@ -57,3 +57,7 @@ aws.config.region = 'us-east-2';
 
 // Load the S3 information from the environment variables.
 const S3_BUCKET = process.env.S3_BUCKET;
+
+app.post('/save-details', (req, res) => {
+  // TODO: Read POSTed form data and do something useful
+});

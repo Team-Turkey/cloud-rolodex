@@ -92,10 +92,10 @@ hooks: {
       return newUserData;
     },
     // set up beforeUpdate lifecycle "hook" functionality
-    async beforeUpdate(updatedUserData) {
-      updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-      return updatedUserData;
-    }
+    // async beforeUpdate(updatedUserData) {
+    //   updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+    //   return updatedUserData;
+    // }
     // Before we can check to see if this hook is effective however, we must add an option to the query call. We will need to add the option { individualHooks: true }. Navigate to the query call in the user-routes.js file for the User.update function in the PUT route to update the password.
   },
     // TABLE CONFIGURATION OPTIONS GO HERE (https://sequelize.org/v5/manual/models-definition.html#configuration))
