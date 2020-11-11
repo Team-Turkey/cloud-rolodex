@@ -38,8 +38,12 @@
       </div>
       <div class="col-12 col-md-8">
         {{#each users as |user| }}
+        {{#ifCond role.department_id}}
         <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
         {{> user-info user}}
+        {{/if}}
+        {{#else}}
+        {{/else}}
         {{/each}}
       </div>
   </div>

@@ -109,24 +109,24 @@ function displayUsers(data, searchTerm) {
 
 async function getByDepartment(id) {
     
-    const response = await fetch(`api/users/${id}`, {
-        method: "GET",
-        include: "department_id",
+    // const response = await fetch(`api/users/${id}`, {
+    //     method: "GET",
+    //     include: "department_id",
     
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-    if (response.ok) {
-        console.log(response.body)
-        response.json().then((data) => {
-            console.log("data", data)
-            displayUsers(data)
-            // document.location.reload()
-        })
-      } else {
-        alert(response.statusText);
-      }
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     }
+    // })
+    // if (response.ok) {
+    //     console.log(response.body)
+    //     response.json().then((data) => {
+    //         console.log("data", data)
+    //         displayUsers(data)
+    //         // document.location.reload()
+    //     })
+    //   } else {
+    //     alert(response.statusText);
+    //   }
     }
 
 
@@ -140,10 +140,10 @@ function buttonClickHandler(event) {
     };
 };
 
-// function UpdateButtonClickHandler(event) {
-//     event.preventDefault()
-//     document.location.replace('/edit-user')
-// }
+function UpdateButtonClickHandler(event) {
+    event.preventDefault()
+    document.location.replace('/edit-user')
+}
 
 // async function editFormHandler(event) {
 //     event.preventDefault();
@@ -175,6 +175,6 @@ function buttonClickHandler(event) {
 // }
 
 
-// userFormEl.addEventListener("submit", formSubmitHandler)
-// departmentButtonsEl.addEventListener("click", buttonClickHandler);
-// document.querySelector('#search-all-users').addEventListener("click", getAllUsers)
+userFormEl.addEventListener("submit", formSubmitHandler)
+departmentButtonsEl.addEventListener("click", buttonClickHandler);
+document.querySelector('#search-all-users').addEventListener("click", getAllUsers)
