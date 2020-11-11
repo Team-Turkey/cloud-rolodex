@@ -1,7 +1,7 @@
 var userFormEl = document.querySelector("#user-form")
 var nameInputEl = document.querySelector("#first-name")
 var usersContainerEl = document.querySelector("#users-container");
-var userSearchTerm = document.querySelector("#user-search-term");
+var userSearchTerm = document.querySelector("#get-user");
 var departmentButtonsEl = document.querySelector("#department-buttons")
 
 function formSubmitHandler(event) {
@@ -16,37 +16,37 @@ function formSubmitHandler(event) {
     }
 };
 
-async function getAllUsers(event) {
-    event.preventDefault();
+// async function getAllUsers(event) {
+//     event.preventDefault();
     
-    const response = await fetch('/api/users/', {
-        method: "GET"
-    })
-    if (response.ok) {
-        console.log(response.body)
-        response.json().then((data) => {
-            displayUsers(data)
-        })
-      } else {
-        alert(response.statusText);
-      }
-};
+//     const response = await fetch('/api/users/', {
+//         method: "GET"
+//     })
+//     if (response.ok) {
+//         console.log(response.body)
+//         response.json().then((data) => {
+//             displayUsers(data)
+//         })
+//       } else {
+//         alert(response.statusText);
+//       }
+// };
 
-async function getAllDepartments(event) {
-    event.preventDefault();
+// async function getAllDepartments(event) {
+//     event.preventDefault();
     
-    const response = await fetch('/api/departments/', {
-        method: "GET"
-    })
-    if (response.ok) {
-        console.log(response.body)
-        response.json().then((data) => {
-            displayUsers(data)
-        })
-      } else {
-        alert(response.statusText);
-      }
-};
+//     const response = await fetch('/api/departments/', {
+//         method: "GET"
+//     })
+//     if (response.ok) {
+//         console.log(response.body)
+//         response.json().then((data) => {
+//             displayUsers(data)
+//         })
+//       } else {
+//         alert(response.statusText);
+//       }
+// };
 
 function displayUsers(data, searchTerm) {
     console.log("Display Users per button pressed", data)

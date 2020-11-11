@@ -4,10 +4,10 @@
         <div class="card">
            <h1></h1>
           <h3 class="card-header text-uppercase">Search By Name</h3>
-          <form id="user-form" class="card-body">
+          <form method="GET" action="/dashboard/users-by-name" enctype="multipart/form-data" id="user-form" class="card-body">
             <label class="form-label" for="first-name">First Name</label>
             <input name="first-name" id="first-name" type="text" autofocus="true" class="form-input" />
-            <a href="dashboard/users-by-name" type="submit" class="btn">Get User</a>
+            <input type="submit" class="btn" id="get-user" value="Get User">
           </form>
         </div>
         <div class="card">
