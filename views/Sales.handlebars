@@ -1,5 +1,6 @@
 <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
-<div id="users-container" class="list-group">
+{{#each users as |user| }}
+<div id="users-container" class="list-group">  
   <div class="card">
   <h3 class="card-header text-uppercase">{{first_name}} {{last_name}}</h3>
   <div class="card-body" id="department-buttons">
@@ -10,3 +11,4 @@
   </div>
 </div>
 </div>
+{{/each}}

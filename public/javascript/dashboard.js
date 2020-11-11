@@ -32,6 +32,22 @@ async function getAllUsers(event) {
       }
 };
 
+async function getAllDepartments(event) {
+    event.preventDefault();
+    
+    const response = await fetch('/api/departments/', {
+        method: "GET"
+    })
+    if (response.ok) {
+        console.log(response.body)
+        response.json().then((data) => {
+            displayUsers(data)
+        })
+      } else {
+        alert(response.statusText);
+      }
+};
+
 function displayUsers(data, searchTerm) {
     console.log("Display Users per button pressed", data)
     if(data.length === 0) {
@@ -175,6 +191,6 @@ function UpdateButtonClickHandler(event) {
 // }
 
 
-userFormEl.addEventListener("submit", formSubmitHandler)
-departmentButtonsEl.addEventListener("click", buttonClickHandler);
-document.querySelector('#search-all-users').addEventListener("click", getAllUsers)
+// userFormEl.addEventListener("submit", formSubmitHandler)
+// departmentButtonsEl.addEventListener("click", buttonClickHandler);
+// document.querySelector('#search-all-users').addEventListener("click", getAllUsers)
