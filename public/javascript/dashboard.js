@@ -32,6 +32,22 @@ async function getAllUsers(event) {
       }
 };
 
+async function getAllDepartments(event) {
+    event.preventDefault();
+    
+    const response = await fetch('/api/departments/', {
+        method: "GET"
+    })
+    if (response.ok) {
+        console.log(response.body)
+        response.json().then((data) => {
+            displayUsers(data)
+        })
+      } else {
+        alert(response.statusText);
+      }
+};
+
 function displayUsers(data, searchTerm) {
     console.log("Display Users per button pressed", data)
     if(data.length === 0) {
@@ -109,24 +125,24 @@ function displayUsers(data, searchTerm) {
 
 async function getByDepartment(id) {
     
-    const response = await fetch(`api/users/${id}`, {
-        method: "GET",
-        include: "department_id",
+    // const response = await fetch(`api/users/${id}`, {
+    //     method: "GET",
+    //     include: "department_id",
     
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-    if (response.ok) {
-        console.log(response.body)
-        response.json().then((data) => {
-            console.log("data", data)
-            displayUsers(data)
-            // document.location.reload()
-        })
-      } else {
-        alert(response.statusText);
-      }
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     }
+    // })
+    // if (response.ok) {
+    //     console.log(response.body)
+    //     response.json().then((data) => {
+    //         console.log("data", data)
+    //         displayUsers(data)
+    //         // document.location.reload()
+    //     })
+    //   } else {
+    //     alert(response.statusText);
+    //   }
     }
 
 
@@ -140,10 +156,10 @@ function buttonClickHandler(event) {
     };
 };
 
-// function UpdateButtonClickHandler(event) {
-//     event.preventDefault()
-//     document.location.replace('/edit-user')
-// }
+function UpdateButtonClickHandler(event) {
+    event.preventDefault()
+    document.location.replace('/edit-user')
+}
 
 // async function editFormHandler(event) {
 //     event.preventDefault();

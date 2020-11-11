@@ -7,21 +7,22 @@
           <form id="user-form" class="card-body">
             <label class="form-label" for="first-name">First Name</label>
             <input name="first-name" id="first-name" type="text" autofocus="true" class="form-input" />
-            <button type="submit" class="btn">Get User</button>
+            <a href="dashboard/users-by-name" type="submit" class="btn">Get User</a>
           </form>
         </div>
         <div class="card">
           <h3 class="card-header text-uppercase">Search All Users</h3>
           <div class="card-body" id="all-users">
-            <button class="btn"  id="search-all-users">Search All Users</button>
+            <a class="btn" href="/dashboard/all-users"  id="search-all-users">Search All Users</a>
           </div>
         </div>
 
         <div class="card">
           <h3 class="card-header text-uppercase">Search Employees By Department</h3>
           <div class="card-body" id="department-buttons">
-            {{#each users as |user| }}
-            {{> user-info-button user}}
+            {{#each departments as |department| }}
+            {{!-- {{> user-info-button user}} --}}
+            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a>
             {{/each}}
 
           </div>
@@ -31,15 +32,16 @@
           <h3 class="card-header text-uppercase">Update Your Information</h3>
           <div class="card-body" id="update-button">
             <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
-            <a class="btn" id="update-btn" href="/dashboard/edit/{{id}}
-            ">Update Info</a>
+            <a class="btn" id="update-btn" href="/dashboard/edit/{{id}}">Update Info</a>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-8">
         {{#each users as |user| }}
-        <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
+        
+        
         {{> user-info user}}
+        
         {{/each}}
       </div>
   </div>
