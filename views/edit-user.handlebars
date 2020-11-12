@@ -22,25 +22,16 @@
       <input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
         value="{{user.phone}}" /><br>
       <input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
-      <input id="role-id" type="number" name="role-id" placeholder="role-id" value={{user.role_id}} /><br>
       {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
       {{!-- <label for="role">Please Select your Role:</label><br> --}}
 
-      <select name="role" id="role">
-        <option value={{items}}>{{user.role.title}}</option>
-        <option value={{user.role.title}}>{{user.role.title}}</option>
-        <option value="Accountant">Finance</option>
-        <option value="Legal">Legal</option>
-        <option value="Sanitation">Sanitation</option>
+      <select name="role-id" id="role" form="edit-user-form">
+        {{#each roles}}
+        <option value="{{this.id}}">{{this.title}}</option>
+        {{/each}}
       </select>
       <br>
-<ul>
-  {{#each items}}
-  <li>{{this}}</li>
-  {{/each}}
-</ul>
-
-            
+  
       <h2>Save changes</h2>
 
       <button class="btn" id="update-btn" type="submit">Update Profile</button>

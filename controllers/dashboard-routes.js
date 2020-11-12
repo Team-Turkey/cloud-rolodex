@@ -425,35 +425,73 @@ router.get('/edit/:id', withAuth, (req, res) => {
       //   loggedIn: req.session.loggedIn
       // });
     }).then(user => {
-      Promise.all([allRoles, allDepts])
-      .then(responses => {
-        console.log('**********COMPLETE RESULTS****************');
-        // console.log('********** ROLES ****************',responses[0]); // 
-        // console.log('********** DEPARTMENTS ****************',responses[1]); 
-        console.log("RESPONSES YO:", responses);
-        const items = responses.map(item  => item.map(thing => thing.get({
-          plain: true
-        })));
-        // const departments = responses[1].get({
-        //   plain: true
-        // });
-        // console.log("ROLES", roles);
-        // console.log("DEPTS", departments);
-        console.log("ITEMS", items);
-        console.log("USER", user);
-        res.render('edit-user', {
-          user,
-          items,
-          loggedIn: req.session.loggedIn
-        });
-      })
-    })
+      Role.findAll({
+          attributes: {
+            exclude: ['createdAt', 'updatedAt']
+          },
+          include: [{
+              model: Department,
+              attributes: {
+                exclude: ['createdAt', 'updatedAt']
+              },
+            },
+            {
+              model: User,
+              attributes: {
+                exclude: ['password']
+              },
+            }
+          ]
 
-    .catch(err => {
-      console.log('**********ERROR RESULT****************');
-      console.log(err);
+        })
+
+        .then((dbRoleData) => {
+         
+          const roles = dbRoleData.map((role) => role.get({
+            plain: true
+          }))
+          console.log("ROLES:", roles);
+          res.render('edit-user', {
+              user,
+              roles,
+              loggedIn: req.session.loggedIn
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json(err);
+            });
+        });
     });
 });
+//       Promise.all([allRoles, allDepts])
+//       .then(responses => {
+//         console.log('**********COMPLETE RESULTS****************');
+//         // console.log('********** ROLES ****************',responses[0]); // 
+//         // console.log('********** DEPARTMENTS ****************',responses[1]); 
+//         console.log("RESPONSES YO:", responses);
+//         const items = responses.map(item  => item.map(thing => thing.get({
+//           plain: true
+//         })));
+//         // const departments = responses[1].get({
+//         //   plain: true
+//         // });
+//         // console.log("ROLES", roles);
+//         // console.log("DEPTS", departments);
+//         console.log("ITEMS", items);
+//         console.log("USER", user);
+//         res.render('edit-user', {
+//           user,
+//           items,
+//           loggedIn: req.session.loggedIn
+//         });
+//       })
+//     })
+
+//     .catch(err => {
+//       console.log('**********ERROR RESULT****************');
+//       console.log(err);
+//     });
+// });
 
 // router.get('/edit/:id', withAuth, (req, res) => {
 //   console.log("REQ", req.params);
