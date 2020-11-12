@@ -24,6 +24,10 @@ User.init(
         // turn on auto increment
         autoIncrement: true
       },
+      avatar: {
+        type: DataTypes.STRING,
+        defaultValue: ""
+      },
       // define a username column
       username: {
         type: DataTypes.STRING,

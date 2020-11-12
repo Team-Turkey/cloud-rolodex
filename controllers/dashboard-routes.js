@@ -7,7 +7,36 @@ const {
   Role
 } = require('../models');
 const withAuth = require('../utils/auth');
-const S3_BUCKET = process.env.S3_BUCKET;
+const upload = require("../services/ImageUpload");
+const singleUpload = upload.single("image");
+
+
+router.post("/:id/add-profile-picture", function (req, res) {
+  console.log("REQ", req.params);
+  singleUpload(req, res, function (err) {
+    if (err) {
+      return res.json({
+        success: false,
+        errors: {
+          title: "Image Upload Error",
+          detail: err.message,
+          error: err,
+        },
+      });
+    }
+    console.log("REQ2", req);
+    User.update({
+      avatar: req.file.location
+  },
+  {
+      where: {
+          id: req.session.user_id
+      }
+  })
+      .then((user) => res.status(200).json({ success: true, user: user }))
+      .catch((err) => res.status(400).json({ success: false, error: err }));
+  });
+});
 
 router.get('/Sales', withAuth, (req, res) => {
   User.findAll({
@@ -307,18 +336,172 @@ router.get('/:id', (req, res) => {
 //     res.status(500).json(err);
 //   });
 // })
+const allDepts =  Department.findAll({
+  attributes: {
+    exclude: ['createdAt', 'updatedAt']
+  },
+  include: [{
+      model: Role,
+      attributes: ['id', 'title', 'department_id'],
+      
+          include: [{
+              model: User,
+              attributes: {
+                  exclude: ['password']
+                },
+          }]
+      
+  },
+]
+})
+const allRoles = Role.findAll({
+  attributes: {
+    exclude: ['createdAt', 'updatedAt']
+  },
+  include: [{
+      model: Department,
+      attributes: {
+      exclude: ['createdAt', 'updatedAt']
+  },
+  },
+{
+  model: User,
+  attributes: {
+      exclude: ['password']
+    },
+}]
 
+})
+
+// const updateUser =   User.findOne({
+//   // individualHooks: true,
+//   where: {
+//     id: req.params.id
+//   },
+//   include: [{
+//     model: Role,
+//     attributes: ["id", "title", "department_id"],
+//     include: {
+//       model: Department,
+//       attributes: ["name"]
+//     },
+//   },
+// ]
+// })
 
 router.get('/edit/:id', withAuth, (req, res) => {
-  console.log("REQ", req.params);
   User.findOne({
-      individualHooks: true,
+      // individualHooks: true,
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
+        },
+      }, ]
+    })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({
+          message: 'No user found with this id'
+        });
+        return;
+      }
+      // console.log("DATA", dbUserData);
+      // res.json(dbUserData);
+      // })
+      const user = dbUserData.get({
+        plain: true
+      });
+      console.log("USER", user);
+      // pass data to template
+      res.render('edit-user', {
+        user,
+        loggedIn: req.session.loggedIn
+      });
+    })
+  Promise.all([allRoles, allDepts])
+    .then(responses => {
+      console.log('**********COMPLETE RESULTS****************');
+      // console.log('********** ROLES ****************',responses[0]); // 
+      // console.log('********** DEPARTMENTS ****************',responses[1]); 
+      const data = responses.map(item => item.get({
+        plain: true
+      }));
+      // const departments = responses[1].get({
+      //   plain: true
+      // });
+      // console.log("ROLES", roles);
+      // console.log("DEPTS", departments);
+      console.log("DATA", data);
+      res.render('edit-user', {
+        data
+      });
+    })
+    .catch(err => {
+      console.log('**********ERROR RESULT****************');
+      console.log(err);
+    });
+});
+
+// router.get('/edit/:id', withAuth, (req, res) => {
+//   console.log("REQ", req.params);
+//   User.findOne({
+//       individualHooks: true,
+//       where: {
+//         id: req.params.id
+//       },
+//       include: [{
+//         model: Role,
+//         attributes: ["id", "title", "department_id"],
+//         include: {
+//           model: Department,
+//           attributes: ["name"]
+//         },
+//       },
+//     ]
+//     })
+//     // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
+//     .then(dbUserData => {
+//       if (!dbUserData) {
+//         res.status(404).json({
+//           message: 'No user found with this id'
+//         });
+//         return;
+//       }
+//       console.log("DATA", dbUserData);
+//       // res.json(dbUserData);
+//       // })
+//       const user = dbUserData.get({
+//         plain: true
+//       });
+//       console.log("USER", user);
+//       // pass data to template
+//       res.render('edit-user', {
+//         user,
+//         loggedIn: req.session.loggedIn
+//       });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+
+// });
+
+router.put('/save-changes/:id', withAuth, (req, res) => {
+  console.log("REQ", req.params);
+  User.update(req.body, {
+      // individualHooks: true,
       where: {
         id: req.params.id
       },
 
     })
-    // We want to make sure the session is created before we send the response back, so we're wrapping the variables in a callback. The req.session.save() method will initiate the creation of the session and then run the callback function once complete.
     .then(dbUserData => {
       if (!dbUserData) {
         res.status(404).json({
@@ -346,47 +529,46 @@ router.get('/edit/:id', withAuth, (req, res) => {
 
 });
 
-
 /*
  * Respond to GET requests to /sign-s3.
  * Upon request, return JSON containing the temporarily-signed S3 request and
  * the anticipated URL of the image.
  */
-router.get('/sign-s3', (req, res) => {
-  const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
-  const s3Params = {
-    Bucket: S3_BUCKET,
-    Key: fileName,
-    Expires: 60,
-    ContentType: fileType,
-    ACL: 'public-read'
-  };
+// router.get('/sign-s3', (req, res) => {
+//   const s3 = new aws.S3();
+//   const fileName = req.query['file-name'];
+//   const fileType = req.query['file-type'];
+//   const s3Params = {
+//     Bucket: S3_BUCKET,
+//     Key: fileName,
+//     Expires: 60,
+//     ContentType: fileType,
+//     ACL: 'public-read'
+//   };
 
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if(err){
-      console.log(err);
-      return res.end();
-    }
-    const returnData = {
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-    };
-    res.write(JSON.stringify(returnData));
-    res.end();
-  });
-});
+//   s3.getSignedUrl('putObject', s3Params, (err, data) => {
+//     if(err){
+//       console.log(err);
+//       return res.end();
+//     }
+//     const returnData = {
+//       signedRequest: data,
+//       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+//     };
+//     res.write(JSON.stringify(returnData));
+//     res.end();
+//   });
+// });
 
 /*
  * Respond to POST requests to /submit_form.
  * This function needs to be completed to handle the information in
  * a way that suits your application.
  */
-router.post('/save-details', (req, res) => {
-  console.log("S3", req);
-  // TODO: Read POSTed form data and do something useful
-});
+// router.post('/save-details', (req, res) => {
+//   console.log("S3", req);
+//   // TODO: Read POSTed form data and do something useful
+// });
 
 
 module.exports = router;
@@ -492,4 +674,3 @@ module.exports = router;
 //         });
 // });
 
-// "$2b$10$92WspQnDvAnk3gr.4zhxaOleNvU4AXGi0DkgZollzqQwBw5kTd8x2",

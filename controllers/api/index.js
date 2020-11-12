@@ -7,7 +7,9 @@ const postRoutes = require('./post-routes');
 const commentRoutes = require('./comment-routes');
 const departmentRoutes = require('./department-routes');
 const roleRoutes = require('./role-routes');
+// const awsRoutes = require('./aws-routes');
 
+// router.use('/aws', awsRoutes);
 router.use('/departments', departmentRoutes);
 router.use('/roles', roleRoutes);
 router.use('/users', userRoutes);

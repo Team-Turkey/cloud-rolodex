@@ -3,9 +3,12 @@ const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
 const aws = require('aws-sdk');
-
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const app = express();
 const PORT = process.env.PORT || 3001;
+const cors = require("cors");
+
 // This uses Heroku's process.env.PORT value when deployed and 3001 when run locally. Having a dynamic port number is important, because it is very unlikely that the port number you hardcode (e.g., 3001) would be the port Heroku runs your app on.
 
 const exphbs = require('express-handlebars');
@@ -28,6 +31,7 @@ const sess = {
   })
 };
 // This code sets up an Express.js session and connects the session to our Sequelize database. As you may be able to guess, "Super secret secret" should be replaced by an actual secret and stored in the .env file. All we need to do to tell our session to use cookies is to set cookie to be {}. If we wanted to set additional options on the cookie, like a maximum age, we would add the options to that object.
+app.use(cors());
 
 app.use(session(sess));
 
@@ -56,8 +60,29 @@ sequelize.sync({ force: false }).then(() => {
 aws.config.region = 'us-east-2';
 
 // Load the S3 information from the environment variables.
-const S3_BUCKET = process.env.S3_BUCKET;
+// const S3_BUCKET = process.env.S3_BUCKET;
 
-app.post('/save-details', (req, res) => {
-  // TODO: Read POSTed form data and do something useful
-});
+// app.post('/save-details', (req, res) => {
+//   // TODO: Read POSTed form data and do something useful
+// });
+
+app.post('/profile', upload.single('avatar'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
+ 
+app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+})
+ 
+var cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+app.post('/cool-profile', cpUpload, function (req, res, next) {
+  // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
+  //
+  // e.g.
+  //  req.files['avatar'][0] -> File
+  //  req.files['gallery'] -> Array
+  //
+  // req.body will contain the text fields, if there were any
+})

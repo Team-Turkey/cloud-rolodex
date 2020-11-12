@@ -156,10 +156,10 @@ function buttonClickHandler(event) {
     };
 };
 
-function UpdateButtonClickHandler(event) {
-    event.preventDefault()
-    document.location.replace('/edit-user')
-}
+// function UpdateButtonClickHandler(event) {
+//     event.preventDefault()
+//     document.location.replace('/edit-user')
+// }
 
 // async function editFormHandler(event) {
 //     event.preventDefault();

@@ -3,6 +3,7 @@ const { User } = require('../models');
 const userData = [
   {
     username: 'jeebs',
+    avatar: '',
     role_id: 1,
     first_name: "Jeff",
     last_name: "Johnston",
@@ -12,6 +13,7 @@ const userData = [
   },
   {
     username: 'mee-more',
+    avatar: '',
     role_id: 2,
     first_name: "Mandy",
     last_name: "Moore",
@@ -21,6 +23,7 @@ const userData = [
   },
   {
     username: '007',
+    avatar: '',
     role_id: 3,
     first_name: "James",
     last_name: "Bond",
@@ -30,6 +33,7 @@ const userData = [
   },
   {
     username: 'Dames',
+    avatar: '',
     role_id: 4,
     first_name: "Matt",
     last_name: "Damon",
@@ -39,6 +43,7 @@ const userData = [
   },
   {
     username: 'surely',
+    avatar: '',
     role_id: 1,
     first_name: "Shirly",
     last_name: "Temple",

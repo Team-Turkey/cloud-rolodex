@@ -6,32 +6,40 @@
     <hr>
 
     <h2>Your avatar</h2>
-
-    <input type="file" id="file-input">
+    <form action="/profile" method="post" enctype="multipart/form-data">
+      <input id="file-input" type="file" name="avatar" />
+    </form>
+    
     <p id="status">Please select a file</p>
-    <img style="border:1px solid gray;width:300px;"  id="preview" src="/images/default.png">
+    <img style="border:1px solid gray;width:300px;" id="preview" src="/images/default.png">
 
-    <h2>Your information</h2>
+  <h2>Your information</h2>
 
-    {{!-- <form method="POST" action="/save-details"> --}}
     <form id="edit-user-form" class="edit-user-form">
-      <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
-      <input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}"><br>
-      <input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}"><br>
-      <input id="phone" type="text" name="phone" placeholder="phone" value="{{user.phone}}"><br>
-      <input id="email" type="text" name="email" placeholder="email" value={{user.email}}><br>
+      {{!-- <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png" /> --}}
+      <input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}" /><br>
+      <input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}" /><br>
+      <input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
+        value="{{user.phone}}" /><br>
+      <input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
+      <input id="role-id" type="number" name="role-id" placeholder="role-id" value={{user.role_id}} /><br>
       {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
       {{!-- <label for="role">Please Select your Role:</label><br> --}}
 
-      {{!-- <select name="role" id="role">
-        <option value="Sales">Sales</option>
-        <option value="Engineer">Engineering</option>
+      <select name="role" id="role">
+        <option value={{user.role.title}}>{{user.role.title}}</option>
+        <option value={{user.role.title}}>{{user.role.title}}</option>
         <option value="Accountant">Finance</option>
         <option value="Legal">Legal</option>
         <option value="Sanitation">Sanitation</option>
-      </select> --}}
+      </select>
       <br>
+ {{#each departments as |department| }}
+            {{> user-info-button user}}
+            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a>
+           {{/each}}
 
+            
       <h2>Save changes</h2>
 
       <button class="btn" id="update-btn" type="submit">Update Profile</button>
@@ -41,6 +49,7 @@
     {{/if}}
 
     <script src="/javascript/edit-user.js"></script>
+     {{!-- <script src="/javascript/avatar-upload.js"></script> --}}
    
   </body>
 </html>
