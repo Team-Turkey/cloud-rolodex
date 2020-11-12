@@ -27,17 +27,18 @@
       {{!-- <label for="role">Please Select your Role:</label><br> --}}
 
       <select name="role" id="role">
-        <option value={{user.role.title}}>{{user.role.title}}</option>
+        <option value={{items}}>{{user.role.title}}</option>
         <option value={{user.role.title}}>{{user.role.title}}</option>
         <option value="Accountant">Finance</option>
         <option value="Legal">Legal</option>
         <option value="Sanitation">Sanitation</option>
       </select>
       <br>
- {{#each departments as |department| }}
-            {{> user-info-button user}}
-            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a>
-           {{/each}}
+<ul>
+  {{#each items}}
+  <li>{{this}}</li>
+  {{/each}}
+</ul>
 
             
       <h2>Save changes</h2>
@@ -53,3 +54,7 @@
    
   </body>
 </html>
+{{!-- 
+departments as |department| }}
+            {{> user-info-button user}}
+            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a> --}}

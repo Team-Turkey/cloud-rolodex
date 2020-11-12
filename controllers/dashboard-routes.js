@@ -417,31 +417,38 @@ router.get('/edit/:id', withAuth, (req, res) => {
       const user = dbUserData.get({
         plain: true
       });
-      console.log("USER", user);
-      // pass data to template
-      res.render('edit-user', {
-        user,
-        loggedIn: req.session.loggedIn
-      });
-    })
-  Promise.all([allRoles, allDepts])
-    .then(responses => {
-      console.log('**********COMPLETE RESULTS****************');
-      // console.log('********** ROLES ****************',responses[0]); // 
-      // console.log('********** DEPARTMENTS ****************',responses[1]); 
-      const data = responses.map(item => item.get({
-        plain: true
-      }));
-      // const departments = responses[1].get({
-      //   plain: true
+      return user;
+      // console.log("USER", user);
+      // // pass data to template
+      // res.render('edit-user', {
+      //   user,
+      //   loggedIn: req.session.loggedIn
       // });
-      // console.log("ROLES", roles);
-      // console.log("DEPTS", departments);
-      console.log("DATA", data);
-      res.render('edit-user', {
-        data
-      });
+    }).then(user => {
+      Promise.all([allRoles, allDepts])
+      .then(responses => {
+        console.log('**********COMPLETE RESULTS****************');
+        // console.log('********** ROLES ****************',responses[0]); // 
+        // console.log('********** DEPARTMENTS ****************',responses[1]); 
+        console.log("RESPONSES YO:", responses);
+        const items = responses.map(item  => item.map(thing => thing.get({
+          plain: true
+        })));
+        // const departments = responses[1].get({
+        //   plain: true
+        // });
+        // console.log("ROLES", roles);
+        // console.log("DEPTS", departments);
+        console.log("ITEMS", items);
+        console.log("USER", user);
+        res.render('edit-user', {
+          user,
+          items,
+          loggedIn: req.session.loggedIn
+        });
+      })
     })
+
     .catch(err => {
       console.log('**********ERROR RESULT****************');
       console.log(err);
@@ -493,41 +500,41 @@ router.get('/edit/:id', withAuth, (req, res) => {
 
 // });
 
-router.put('/save-changes/:id', withAuth, (req, res) => {
-  console.log("REQ", req.params);
-  User.update(req.body, {
-      // individualHooks: true,
-      where: {
-        id: req.params.id
-      },
+// router.put('/save-changes/:id', withAuth, (req, res) => {
+//   console.log("REQ", req.params);
+//   User.update(req.body, {
+//       // individualHooks: true,
+//       where: {
+//         id: req.params.id
+//       },
 
-    })
-    .then(dbUserData => {
-      if (!dbUserData) {
-        res.status(404).json({
-          message: 'No user found with this id'
-        });
-        return;
-      }
-      console.log("DATA", dbUserData);
-      // res.json(dbUserData);
-      // })
-      const user = dbUserData.get({
-        plain: true
-      });
-      console.log("USER", user);
-      // pass data to template
-      res.render('edit-user', {
-        user,
-        loggedIn: req.session.loggedIn
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+//     })
+//     .then(dbUserData => {
+//       if (!dbUserData) {
+//         res.status(404).json({
+//           message: 'No user found with this id'
+//         });
+//         return;
+//       }
+//       console.log("DATA", dbUserData);
+//       // res.json(dbUserData);
+//       // })
+//       const user = dbUserData.get({
+//         plain: true
+//       });
+//       console.log("USER", user);
+//       // pass data to template
+//       res.render('edit-user', {
+//         user,
+//         loggedIn: req.session.loggedIn
+//       });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
 
-});
+// });
 
 /*
  * Respond to GET requests to /sign-s3.
