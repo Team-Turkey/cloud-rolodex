@@ -66,6 +66,8 @@ aws.config.region = 'us-east-2';
 //   // TODO: Read POSTed form data and do something useful
 // });
 
+// ***************** MULTER ROUTES ********************************
+
 app.post('/profile', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
@@ -86,3 +88,5 @@ app.post('/cool-profile', cpUpload, function (req, res, next) {
   //
   // req.body will contain the text fields, if there were any
 })
+
+// ***************** END MULTER ROUTES ********************************
