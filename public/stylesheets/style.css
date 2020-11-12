@@ -1,16 +1,21 @@
 /* Taken from git-it-done project */
 :root {
   --primary: #ccdad1;
-  --secondary: #9caea9;
-  --tertiary: #788585;
+  --secondary: #679289;
+  --tertiary: #1d7874;
   --light-dark: #6f6866;
   --dark: #38302e;
   --border-radius: .3rem;
+  
 }
+
+
 
 * {
   box-sizing: border-box;
+  text-decoration: none;
 }
+
 
 body {
   background-color: var(--primary);
@@ -91,6 +96,16 @@ p {
   background-color: var(--tertiary);
   transform: translate(0, 0);
   box-shadow: 2px 2px var(--dark);
+}
+.btn-secondary {
+  font-size: 1.5rem;
+  background-color: var(--primary);
+  color: var(--dark);
+  padding: 0 10px;
+  display: inline-block;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--light-dark);
+  margin: 20px;
 }
 
 .hero {
