@@ -12,32 +12,37 @@ const upload = require("../services/ImageUpload");
 const singleUpload = upload.single("image");
 
 
-router.post("/:id/add-profile-picture", function (req, res) {
-  console.log("REQ", req.params);
-  singleUpload(req, res, function (err) {
-    if (err) {
-      return res.json({
-        success: false,
-        errors: {
-          title: "Image Upload Error",
-          detail: err.message,
-          error: err,
-        },
-      });
-    }
-    console.log("REQ2", req);
-    User.update({
-      avatar: req.file.location
-  },
-  {
-      where: {
-          id: req.session.user_id
-      }
-  })
-      .then((user) => res.status(200).json({ success: true, user: user }))
-      .catch((err) => res.status(400).json({ success: false, error: err }));
-  });
-});
+// router.post("/:id/add-profile-picture", function (req, res) {
+//   console.log("REQ", req.params);
+//   singleUpload(req, res, function (err) {
+//     if (err) {
+//       return res.json({
+//         success: false,
+//         errors: {
+//           title: "Image Upload Error",
+//           detail: err.message,
+//           error: err,
+//         },
+//       });
+//     }
+//     console.log("REQ2", req);
+//     User.update({
+//         avatar: req.file.location
+//       }, {
+//         where: {
+//           id: req.session.user_id
+//         }
+//       })
+//       .then((user) => res.status(200).json({
+//         success: true,
+//         user: user
+//       }))
+//       .catch((err) => res.status(400).json({
+//         success: false,
+//         error: err
+//       }));
+//   });
+// });
 
 router.get('/Sales', withAuth, (req, res) => {
   User.findAll({
@@ -349,23 +354,22 @@ router.get('/:id', (req, res) => {
 //     res.status(500).json(err);
 //   });
 // })
-const allDepts =  Department.findAll({
+const allDepts = Department.findAll({
   attributes: {
     exclude: ['createdAt', 'updatedAt']
   },
   include: [{
-      model: Role,
-      attributes: ['id', 'title', 'department_id'],
-      
-          include: [{
-              model: User,
-              attributes: {
-                  exclude: ['password']
-                },
-          }]
-      
-  },
-]
+    model: Role,
+    attributes: ['id', 'title', 'department_id'],
+
+    include: [{
+      model: User,
+      attributes: {
+        exclude: ['password']
+      },
+    }]
+
+  }, ]
 })
 const allRoles = Role.findAll({
   attributes: {
@@ -374,15 +378,16 @@ const allRoles = Role.findAll({
   include: [{
       model: Department,
       attributes: {
-      exclude: ['createdAt', 'updatedAt']
-  },
-  },
-{
-  model: User,
-  attributes: {
-      exclude: ['password']
+        exclude: ['createdAt', 'updatedAt']
+      },
     },
-}]
+    {
+      model: User,
+      attributes: {
+        exclude: ['password']
+      },
+    }
+  ]
 
 })
 
@@ -459,7 +464,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
         })
 
         .then((dbRoleData) => {
-         
+
           const roles = dbRoleData.map((role) => role.get({
             plain: true
           }))
@@ -630,7 +635,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
 
 
 module.exports = router;
-  
+
 // router.get('/', (req, res) => {
 //     res.render('dashboard', { loggedIn: true });
 //   });
@@ -731,4 +736,3 @@ module.exports = router;
 //https://drive.google.com/file/d/1YbFTiiloufs0356c4yB9BnaHINc16I6G/view
 //         });
 // });
-

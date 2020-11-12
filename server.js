@@ -4,7 +4,9 @@ const sequelize = require('./config/connection');
 const path = require('path');
 const aws = require('aws-sdk');
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({
+  dest: 'uploads/'
+})
 const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require("cors");
@@ -14,7 +16,9 @@ const cors = require("cors");
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
 // const hbs = exphbs.create({});
-const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({
+  helpers
+});
 
 // The express-session library allows us to connect to the back end. The connect-session-sequelize library automatically stores the sessions created by express-session into our database.
 const session = require('express-session');
@@ -39,7 +43,9 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 // The express.static() method is a built-in Express.js middleware function that can take all of the contents of a folder and serve them as static assets. This is useful for front-end specific files like images, style sheets, and JavaScript files.
 
@@ -48,7 +54,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 // turn on connection to db and server
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({
+  force: false
+}).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
 
@@ -66,17 +74,25 @@ aws.config.region = 'us-east-2';
 //   // TODO: Read POSTed form data and do something useful
 // });
 
+// ***************** MULTER ROUTES ********************************
+
 app.post('/profile', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
 })
- 
+
 app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
 })
- 
-var cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+
+var cpUpload = upload.fields([{
+  name: 'avatar',
+  maxCount: 1
+}, {
+  name: 'gallery',
+  maxCount: 8
+}])
 app.post('/cool-profile', cpUpload, function (req, res, next) {
   // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
   //
@@ -86,3 +102,5 @@ app.post('/cool-profile', cpUpload, function (req, res, next) {
   //
   // req.body will contain the text fields, if there were any
 })
+
+// ***************** END MULTER ROUTES ********************************
