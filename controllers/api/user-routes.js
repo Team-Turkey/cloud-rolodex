@@ -207,7 +207,7 @@ router.put('/:id', withAuth, (req, res) => {
   // pass in req.body instead to only update what's passed through
   console.log("BODY:", req.body);
   User.update(req.body, {
-      individualHooks: false,
+      // individualHooks: false,
       where: {
         id: req.session.user_id
         // TODO: Ensure that req.params.id = current userID

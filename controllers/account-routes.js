@@ -46,7 +46,7 @@ router.get('/sign-s3', (req, res) => {
 
   router.put('/', withAuth, (req, res) => {
     User.update(req.body, {
-        individualHooks: true,
+        // individualHooks: true,
         where: {
           id: req.params.id
         }
