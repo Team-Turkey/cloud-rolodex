@@ -8,9 +8,6 @@ const apiRoutes = require('./api');
 
 const dashboardRoutes = require('./dashboard-routes.js');
 
-const accountRoutes = require('./account-routes');
-
-router.use('/account', accountRoutes);
 
 router.use('/', homeRoutes);
 

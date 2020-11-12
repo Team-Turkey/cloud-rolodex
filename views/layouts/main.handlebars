@@ -12,14 +12,22 @@
     <div>
        <header>
            <h1>
-        <a href="/" class="app-title">Cloud Rolodex</a>
+            {{#if loggedIn}}
+            <a href="/dashboard" class="app-title">Cloud Rolodex</a>
+            {{else}}
+            <a href="/" class="app-title">Cloud Rolodex</a>
+            
+            {{/if}}
     </h1>
     <nav>
   {{#if loggedIn}}
-   <a class="app-title" href="/dashboard">dashboard</a>
-  <button id="logout" class="btn-no-style">logout</button>
+  <div>
+    <a class="btn-secondary" href="/dashboard">dashboard</a>
+    <a class="btn-secondary" href="/" id="logout" class="btn-no-style">logout</a>
+  </div>
+   
   {{else}}
-  <a href="/login">login</a>
+  <a class="btn-secondary" href="/login">login</a>
   {{/if}}
 </nav>
 </header>
@@ -27,15 +35,14 @@
             {{{ body }}}
         </main>
         <footer>
-           &COPY; 2020 Team Turkey
+            &COPY; 2020 Team Turkey
         </footer>
     </div>
 
-{{#if loggedIn}}
-<script src="/javascript/logout.js"></script>
-{{/if}}
+    {{#if loggedIn}}
+    <script src="/javascript/logout.js"></script>
+    {{/if}}
 
 </body>
 
 </html>
-{{!-- Notice that there's a special placeholder in the <main> element: {{{ body }}}. This is Handlebars.js syntax for data that will be plugged in later. In this case, the data will be another, smaller template, like the contents of the homepage. --}}
