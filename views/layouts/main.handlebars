@@ -10,30 +10,30 @@
 
 <body>
     <div>
-       <header>
-           <h1>
-        <a href="/" class="app-title">Cloud Rolodex</a>
-    </h1>
-    <nav>
-  {{#if loggedIn}}
-   <a class="app-title" href="/dashboard">dashboard</a>
-  <button id="logout" class="btn-no-style">logout</button>
-  {{else}}
-  <a href="/login">login</a>
-  {{/if}}
-</nav>
-</header>
+        <header>
+            <h1>
+                <a href="/" class="app-title">Cloud Rolodex</a>
+            </h1>
+            <nav>
+                {{#if loggedIn}}
+                <a class="app-title" href="/dashboard">dashboard</a>
+                <button id="logout" class="btn-no-style">logout</button>
+                {{else}}
+                <a href="/login">login</a>
+                {{/if}}
+            </nav>
+        </header>
         <main>
             {{{ body }}}
         </main>
         <footer>
-           &COPY; 2020 Team Turkey
+            &COPY; 2020 Team Turkey
         </footer>
     </div>
 
-{{#if loggedIn}}
-<script src="/javascript/logout.js"></script>
-{{/if}}
+    {{#if loggedIn}}
+    <script src="/javascript/logout.js"></script>
+    {{/if}}
 
 </body>
 

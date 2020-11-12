@@ -1,11 +1,16 @@
 const router = require('express').Router();
+const AWS = require('aws-sdk');
+const fs = require("fs")
 const {
   User,
   Department,
   Role
 } = require('../../models');
 const withAuth = require('../../utils/auth');
-
+const multer = require('multer')
+const upload = multer({
+  dest: 'uploads/'
+})
 // GET /api/users
 router.get('/', (req, res) => {
   // Access our User model and run .findAll() method)
@@ -17,11 +22,10 @@ router.get('/', (req, res) => {
         model: Role,
         attributes: {
           exclude: ['createdAt', 'updatedAt']
-        
-      
+
+
         }
-      },
-    ]
+      }, ]
       // we've provided an attributes key and instructed the query to exclude the password column. It's in an array because if we want to exclude more than one, we can just add more.
     })
     .then(dbUserData => res.json(dbUserData))
@@ -34,20 +38,20 @@ router.get('/', (req, res) => {
 // GET /api/users/1
 router.get('/:id', (req, res) => {
   User.findOne({
-    where: {
-      id: req.params.id
-    },
+      where: {
+        id: req.params.id
+      },
       attributes: {
         exclude: ['password']
       },
       // replace the existing `include` with this
       include: [{
-          model: Role,
-          attributes: ['id', 'title', 'department_id'],
-          include: [{
-            model: Department,
-            attributes: ['id', 'name']
-      
+        model: Role,
+        attributes: ['id', 'title', 'department_id'],
+        include: [{
+          model: Department,
+          attributes: ['id', 'name']
+
         }]
       }]
     })
@@ -96,48 +100,48 @@ router.post('/login', (req, res) => {
   // expects {email: 'lernantino@gmail.com', password: 'password1234'}
   console.log(req.body)
   User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then(dbUserData => {
-    console.log("db user data", dbUserData)
-    if (!dbUserData) {
-      res.status(400).json({
-        message: 'No user with that email address!'
-      });
-      return;
-    }
+      where: {
+        email: req.body.email
+      }
+    }).then(dbUserData => {
+      console.log("db user data", dbUserData)
+      if (!dbUserData) {
+        res.status(400).json({
+          message: 'No user with that email address!'
+        });
+        return;
+      }
 
- 
 
-    // Verify user
-    const validPassword = dbUserData.checkPassword(req.body.password);
-    console.log("valid password", validPassword)
-    if (!validPassword) {
-      res.status(400).json({
-        message: 'Incorrect password!'
-      });
-      return;
-    }
+
+      // Verify user
+      const validPassword = dbUserData.checkPassword(req.body.password);
+      console.log("valid password", validPassword)
+      if (!validPassword) {
+        res.status(400).json({
+          message: 'Incorrect password!'
+        });
+        return;
+      }
       //  res.json({ user: dbUserData });
-  
-    req.session.save(() => {
-      // declare session variables
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
 
-      res.json({
-        user: dbUserData,
-        message: 'You are now logged in!'
-      });
+      req.session.save(() => {
+        // declare session variables
+        req.session.user_id = dbUserData.id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
+
+        res.json({
+          user: dbUserData,
+          message: 'You are now logged in!'
+        });
+      })
+
     })
-    
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post('/logout', withAuth, (req, res) => {
@@ -150,6 +154,51 @@ router.post('/logout', withAuth, (req, res) => {
     res.status(404).end();
   }
 });
+const bucketRegion = 'us-east-2'
+
+router.post('/avatar', withAuth, upload.single('avatar'), (req, res) => {
+  const s3 = new AWS.S3();
+  var fileName = Math.random().toString().substr(2);
+  let bucketName = 'cloud-rolodex'
+  var filePath = 'avatars/' + fileName;
+  var fileUrl = 'https://' +
+    bucketName + '.s3.' + bucketRegion + '.amazonaws.com/' + filePath;
+  let params = {
+    Key: filePath,
+    Body: fs.createReadStream(req.file.path),
+    ACL: 'public-read',
+    Bucket: bucketName
+  }
+  // use aws.s3.putObject(params).promise().then((resp)=>{console.log(resp)}) to upload the file
+  console.log("params", params);
+  s3.putObject(params).promise().then((resp) => {
+    console.log(resp)
+    // upload worked 
+    // add URL to avatar field on user model
+    // user.avatar = fileUrl
+    // user.save()
+    User.update({
+      avatar: fileUrl
+    }, {
+      where: {
+        id: req.session.user_id
+      }
+    }).then(() => {
+      res.status(200).json({
+        message: 'COOL!',
+        url: fileUrl
+      });
+    })
+
+  }).catch((err) => {
+    console.log(err)
+    res.status(500).json({
+      message: 'oops!',
+    });
+  })
+
+
+});
 
 // PUT /api/users/1
 router.put('/:id', withAuth, (req, res) => {
@@ -160,7 +209,8 @@ router.put('/:id', withAuth, (req, res) => {
   User.update(req.body, {
       individualHooks: false,
       where: {
-        id: req.params.id
+        id: req.session.user_id
+        // TODO: Ensure that req.params.id = current userID
       }
     })
     .then(dbUserData => {
@@ -178,27 +228,30 @@ router.put('/:id', withAuth, (req, res) => {
     });
 });
 
-// DELETE /api/users/1
-router.delete('/:id', withAuth, (req, res) => {
-  User.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(dbUserData => {
-      if (!dbUserData) {
-        res.status(404).json({
-          message: 'No user found with this id'
-        });
-        return;
-      }
-      res.json(dbUserData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+
+
+// DELETE /api/users//
+// router.delete('/:id', withAuth, (req, res) => {
+//   // TO DO: ENSURE USERS CAN ONLY DELETE THEMSELVES
+//   User.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//     .then(dbUserData => {
+//       if (!dbUserData) {
+//         res.status(404).json({
+//           message: 'No user found with this id'
+//         });
+//         return;
+//       }
+//       res.json(dbUserData);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 
 module.exports = router;

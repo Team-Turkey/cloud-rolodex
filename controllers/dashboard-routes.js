@@ -26,218 +26,235 @@ router.post("/:id/add-profile-picture", function (req, res) {
     }
     console.log("REQ2", req);
     User.update({
-      avatar: req.file.location
-  },
-  {
-      where: {
+        avatar: req.file.location
+      }, {
+        where: {
           id: req.session.user_id
-      }
-  })
-      .then((user) => res.status(200).json({ success: true, user: user }))
-      .catch((err) => res.status(400).json({ success: false, error: err }));
+        }
+      })
+      .then((user) => res.status(200).json({
+        success: true,
+        user: user
+      }))
+      .catch((err) => res.status(400).json({
+        success: false,
+        error: err
+      }));
   });
 });
 
 router.get('/Sales', withAuth, (req, res) => {
   User.findAll({
-        where: {
-          "$Role.Department.name$": "Sales"
+      where: {
+        "$Role.Department.name$": "Sales"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('Sales', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('Sales', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/Engineering', withAuth, (req, res) => {
   User.findAll({
-    where: {
-      "$Role.Department.name$": "Engineering"
-    },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
+      where: {
+        "$Role.Department.name$": "Engineering"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('Engineering', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('Engineering', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/Finance', withAuth, (req, res) => {
   User.findAll({
-        where: {
-          "$Role.Department.name$": "Finance"
+      where: {
+        "$Role.Department.name$": "Finance"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('Finance', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('Finance', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/Legal', withAuth, (req, res) => {
   User.findAll({
-        where: {
-          "$Role.Department.name$": "Legal"
+      where: {
+        "$Role.Department.name$": "Legal"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('Legal', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('Legal', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/Sanitation', withAuth, (req, res) => {
   User.findAll({
-        where: {
-          "$Role.Department.name$": "Sanitation"
+      where: {
+        "$Role.Department.name$": "Sanitation"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('Sanitation', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('Sanitation', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/all-users', withAuth, (req, res) => {
   User.findAll({
-        
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
+
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('all-users', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('all-users', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 router.get('/', withAuth, (req, res) => {
@@ -245,55 +262,60 @@ router.get('/', withAuth, (req, res) => {
   console.log("SESSION", req.session.user_id);
   const id = req.session.user_id;
 
-    Department.findAll({
+  Department.findAll({
       attributes: ["id", "name"]
     })
-  .then((dbPostData) => {
-    const departments = dbPostData.map((department) => department.get({plain: true}))
-    
-    res.render('dashboard', { 
-      departments,
-      id,
-      loggedIn: true});
-  })
-  .catch(err => {
+    .then((dbPostData) => {
+      const departments = dbPostData.map((department) => department.get({
+        plain: true
+      }))
+
+      res.render('dashboard', {
+        departments,
+        id,
+        loggedIn: true
+      });
+    })
+    .catch(err => {
       console.log("ERROR", err);
       res.status(500).json(err);
-  });
+    });
 })
 
 router.get('/users-by-name', withAuth, (req, res) => {
   User.findAll({
-        where: {
-          "$Role.Department.name$": "Sanitation"
+      where: {
+        "$Role.Department.name$": "Sanitation"
+      },
+      attributes: {
+        include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: {
+          model: Department,
+          attributes: ["name"]
         },
-        attributes: {
-          include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
-        include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-      ]
+      }, ]
     })
-      .then((dbPostData) => {
-        const users = dbPostData.map((user) => user.get({plain: true}))
-        // const name = window.location.toString().split('/')[
-        //   window.location.toString().split('/').length - 1];
-        res.render('users-by-name', { 
-          users, 
-          loggedIn: true});
-          console.log("user object being sent to handlebars", users)
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      });   
+    .then((dbPostData) => {
+      const users = dbPostData.map((user) => user.get({
+        plain: true
+      }))
+      // const name = window.location.toString().split('/')[
+      //   window.location.toString().split('/').length - 1];
+      res.render('users-by-name', {
+        users,
+        loggedIn: true
+      });
+      console.log("user object being sent to handlebars", users)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 })
 
 
@@ -336,23 +358,22 @@ router.get('/:id', (req, res) => {
 //     res.status(500).json(err);
 //   });
 // })
-const allDepts =  Department.findAll({
+const allDepts = Department.findAll({
   attributes: {
     exclude: ['createdAt', 'updatedAt']
   },
   include: [{
-      model: Role,
-      attributes: ['id', 'title', 'department_id'],
-      
-          include: [{
-              model: User,
-              attributes: {
-                  exclude: ['password']
-                },
-          }]
-      
-  },
-]
+    model: Role,
+    attributes: ['id', 'title', 'department_id'],
+
+    include: [{
+      model: User,
+      attributes: {
+        exclude: ['password']
+      },
+    }]
+
+  }, ]
 })
 const allRoles = Role.findAll({
   attributes: {
@@ -361,15 +382,16 @@ const allRoles = Role.findAll({
   include: [{
       model: Department,
       attributes: {
-      exclude: ['createdAt', 'updatedAt']
-  },
-  },
-{
-  model: User,
-  attributes: {
-      exclude: ['password']
+        exclude: ['createdAt', 'updatedAt']
+      },
     },
-}]
+    {
+      model: User,
+      attributes: {
+        exclude: ['password']
+      },
+    }
+  ]
 
 })
 
@@ -446,7 +468,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
         })
 
         .then((dbRoleData) => {
-         
+
           const roles = dbRoleData.map((role) => role.get({
             plain: true
           }))
@@ -617,7 +639,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
 
 
 module.exports = router;
-  
+
 // router.get('/', (req, res) => {
 //     res.render('dashboard', { loggedIn: true });
 //   });
@@ -718,4 +740,3 @@ module.exports = router;
 //https://drive.google.com/file/d/1YbFTiiloufs0356c4yB9BnaHINc16I6G/view
 //         });
 // });
-
