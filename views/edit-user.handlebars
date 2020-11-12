@@ -15,9 +15,9 @@
 <progress max=”100” value=”0”></progress>
 
 
-    <form action="/profile" method="post" enctype="multipart/form-data">
+    {{!-- <form action="/profile" method="post" enctype="multipart/form-data">
       <input id="file-input" type="file" name="avatar" />
-    </form>
+    </form> --}}
     
     <p id="status">Please select a file</p>
     <img style="border:1px solid gray;width:300px;" id="preview" src="/images/default.png">
@@ -50,52 +50,9 @@
     {{/if}}
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-  //Bucket Configurations
-  var bucketName = 'cloud-rolodex';
-  var bucketRegion = 'us-east-2';
-  var IdentityPoolId = 'us-east-2:6b47a7ae-f625-4149-91b1-bf2a68223673';
 
-  AWS.config.update({
-    region: bucketRegion,
-    credentials: new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: IdentityPoolId
-    })
-  });
-
-  var s3 = new AWS.S3({
-    apiVersion: '2006-03-01',
-    params: { Bucket: bucketName }
-  });
-</script>
-
-<script type="text/javascript">
-function s3upload() {
-   var files = document.getElementById('fileUpload').files;
-   if (files) 
-   {
-     var file = files[0];
-     var fileName = file.name;
-     var filePath = 'my-first-bucket-path/' + fileName;
-     var fileUrl = 'https://' + bucketRegion + '.amazonaws.com/my-    first-bucket/' +  filePath;
-     s3.upload({
-        Key: filePath,
-        Body: file,
-        ACL: 'public-read'
-        }, function(err, data) {
-        if(err) {
-        reject('error');
-        }
-        alert('Successfully Uploaded!');
-        }).on('httpUploadProgress', function (progress) {
-        var uploaded = parseInt((progress.loaded * 100) / progress.total);
-        $("progress").attr('value', uploaded);
-      });
-   }
-};
-</script>
     <script src="/javascript/edit-user.js"></script>
-     {{!-- <script src="/javascript/ImageUpload.js"></script> --}}
+     <script src="/javascript/avatar-upload.js"></script>
    
   </body>
 </html>
