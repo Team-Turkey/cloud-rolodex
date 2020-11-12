@@ -1,5 +1,4 @@
 function loginFormHandler(event) {
-    console.log("login function")
     event.preventDefault();
     document.location.replace("/login")
 };
