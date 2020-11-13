@@ -3,8 +3,6 @@ async function editFormHandler(event) {
 
     const id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1];
-    console.log("ID", id);
-
     const first_name = document.querySelector('input[name="first-name"]').value.trim();
     const last_name = document.querySelector('input[name="last-name"]').value.trim();
     const phone = document.querySelector('input[name="phone"]').value.trim();
@@ -26,7 +24,6 @@ async function editFormHandler(event) {
             'Content-Type': 'application/json'
         }
     });
-    console.log("EDIT-USER RES:", response);
     if (response.ok) {
         document.location.replace('/dashboard/');
         

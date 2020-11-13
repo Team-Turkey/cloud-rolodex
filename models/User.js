@@ -26,7 +26,7 @@ User.init(
       },
       avatar: {
         type: DataTypes.STRING,
-        defaultValue: ""
+        defaultValue: "/images/default.png"
       },
       // define a username column
       username: {
@@ -53,7 +53,7 @@ User.init(
         type: DataTypes.STRING,
         defaultValue: " ",
         // there cannot be any duplicate email values in this table
-        unique: true,   
+        
       },
       // define an email column
       email: {
