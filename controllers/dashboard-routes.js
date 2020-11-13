@@ -36,7 +36,8 @@ router.get('/Sales', withAuth, (req, res) => {
       res.render('Sales', {
         users,
         loggedIn: true,
-        layout: 'Sales'
+        layout: 'nonav.handlebars'
+        
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -60,7 +61,8 @@ router.get('/Engineering', withAuth, (req, res) => {
       attributes: ["id", "title", "department_id"],
       include: {
         model: Department,
-        attributes: ["name"]
+        attributes: ["name"],
+        
       },
     },
     ]
@@ -71,7 +73,8 @@ router.get('/Engineering', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('Engineering', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'nonav.handlebars'
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -106,7 +109,8 @@ router.get('/Finance', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('Finance', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'nonav.handlebars'
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -141,7 +145,8 @@ router.get('/Legal', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('Legal', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'nonav.handlebars'
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -176,7 +181,8 @@ router.get('/Sanitation', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('Sanitation', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'nonav.handlebars'
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -209,7 +215,8 @@ router.get('/all-users', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('all-users', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'nonav.handlebars'
       });
       console.log("user object being sent to handlebars", users)
     })
@@ -271,7 +278,8 @@ router.get('/users-by-name', withAuth, (req, res) => {
       console.log("user object being sent to handlebars", users);
       res.render('users-by-name', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        // layout: 'nonav.handlebars'
       });
       
     })
