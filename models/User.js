@@ -53,7 +53,7 @@ User.init(
         type: DataTypes.STRING,
         defaultValue: " ",
         // there cannot be any duplicate email values in this table
-        unique: true,   
+        
       },
       // define an email column
       email: {
