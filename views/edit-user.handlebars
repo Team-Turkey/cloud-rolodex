@@ -1,0 +1,66 @@
+<html>
+
+<body>
+  {{#if loggedIn}}
+  <h1>Edit your account</h1>
+
+  <hr>
+
+  <h2>Your avatar</h2>
+  <img style="border:1px solid gray;width:300px;" id="preview" default="/images/default.png" width=200 src="{{user.avatar}}" />
+  <div>
+    <form id="fileUpload" action="/api/users/avatar" method="post">
+      <input type="file" name="avatar" id="fileSelector">
+      {{!-- <input type="submit" /> --}}
+    </form>
+  </div>
+  </div>
+  <progress max=”100” value=”0”></progress>
+
+
+  {{!-- <form action="/profile" method="post" enctype="multipart/form-data">
+      <input id="file-input" type="file" name="avatar" />
+    </form> --}}
+
+  {{!-- <p id="status">Please select a file</p>
+  <img style="border:1px solid gray;width:300px;" id="preview" src="/images/default.png"> --}}
+
+  <h2>Your information</h2>
+
+  <form id="edit-user-form" class="edit-user-form">
+    {{!-- <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png" /> --}}
+    <input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}" /><br>
+    <input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}" /><br>
+    <input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
+      value="{{user.phone}}" /><br>
+    <input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
+    {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
+    {{!-- <label for="role">Please Select your Role:</label><br> --}}
+
+    <select name="role-id" id="role" form="edit-user-form">
+      {{#each roles}}
+      <option value="{{this.id}}">{{this.title}}</option>
+      {{/each}}
+    </select>
+    <br>
+
+    <h2>Save changes</h2>
+
+    <button class="btn" id="update-btn" type="submit">Update Profile</button>
+  </form>
+  {{else}}
+  <h1 href="/login">Unable to edit information, You are not logged in</h1>
+  {{/if}}
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <script src="/javascript/edit-user.js"></script>
+  <script src="/javascript/avatar-upload.js"></script>
+
+</body>
+
+</html>
+{{!-- 
+departments as |department| }}
+            {{> user-info-button user}}
+            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a> --}}

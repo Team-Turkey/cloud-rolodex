@@ -1,0 +1,35 @@
+async function editFormHandler(event) {
+    event.preventDefault();
+
+    const id = window.location.toString().split('/')[
+        window.location.toString().split('/').length - 1];
+    const first_name = document.querySelector('input[name="first-name"]').value.trim();
+    const last_name = document.querySelector('input[name="last-name"]').value.trim();
+    const phone = document.querySelector('input[name="phone"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const role_id = document.querySelector('select[name="role-id"]').value.trim();
+
+    const response = await fetch(`/api/users/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            // username,
+            first_name,
+            last_name,
+            phone,
+            email,
+            role_id
+      
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        document.location.replace('/dashboard/');
+        
+    } else {
+        alert(response.statusText);
+    }
+}
+
+document.querySelector('.edit-user-form').addEventListener('submit', editFormHandler);

@@ -1,0 +1,14 @@
+<h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
+{{#each users as |user| }}
+<div id="users-container" class="list-group">  
+  <div class="card">
+  <h3 class="card-header text-uppercase">{{first_name}} {{last_name}}</h3>
+  <div class="card-body" id="department-buttons">
+    <a>Title: {{role.title}}</a><br>
+    <a>Phone: {{phone}}</a><br>
+    <a>Email: {{email}}</a><br>
+    <a>Department: {{role.department.name}}</a><br>
+  </div>
+</div>
+</div>
+{{/each}}
