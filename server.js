@@ -9,7 +9,7 @@ const upload = multer({
 })
 const app = express();
 const PORT = process.env.PORT || 3001;
-const cors = require("cors");
+// const cors = require("cors");
 
 // This uses Heroku's process.env.PORT value when deployed and 3001 when run locally. Having a dynamic port number is important, because it is very unlikely that the port number you hardcode (e.g., 3001) would be the port Heroku runs your app on.
 
@@ -35,7 +35,7 @@ const sess = {
   })
 };
 // This code sets up an Express.js session and connects the session to our Sequelize database. As you may be able to guess, "Super secret secret" should be replaced by an actual secret and stored in the .env file. All we need to do to tell our session to use cookies is to set cookie to be {}. If we wanted to set additional options on the cookie, like a maximum age, we would add the options to that object.
-app.use(cors());
+// app.use(cors());
 
 app.use(session(sess));
 
