@@ -75,10 +75,6 @@ router.post('/', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.create({
       username: req.body.username,
-      role_id: req.body.role_id,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      phone: req.body.phone,
       email: req.body.email,
       password: req.body.password
     })
@@ -104,16 +100,12 @@ router.post('/login', (req, res) => {
         email: req.body.email
       }
     }).then(dbUserData => {
-      console.log("db user data", dbUserData)
       if (!dbUserData) {
         res.status(400).json({
           message: 'No user with that email address!'
         });
         return;
       }
-
-
-
       // Verify user
       const validPassword = dbUserData.checkPassword(req.body.password);
       console.log("valid password", validPassword)
@@ -148,7 +140,7 @@ router.post('/logout', withAuth, (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
-      res.render('homepage')
+      // res.render('homepage') ??
     });
   } else {
     res.status(404).end();
@@ -185,7 +177,7 @@ router.post('/avatar', withAuth, upload.single('avatar'), (req, res) => {
       }
     }).then(() => {
       res.status(200).json({
-        message: 'COOL!',
+        message: 'Avatar updated!',
         url: fileUrl
       });
     })
@@ -193,7 +185,7 @@ router.post('/avatar', withAuth, upload.single('avatar'), (req, res) => {
   }).catch((err) => {
     console.log(err)
     res.status(500).json({
-      message: 'oops!',
+      message: 'ERROR updating avatar!',
     });
   })
 
@@ -230,28 +222,28 @@ router.put('/:id', withAuth, (req, res) => {
 
 
 
-// DELETE /api/users//
-// router.delete('/:id', withAuth, (req, res) => {
-//   // TO DO: ENSURE USERS CAN ONLY DELETE THEMSELVES
-//   User.destroy({
-//       where: {
-//         id: req.params.id
-//       }
-//     })
-//     .then(dbUserData => {
-//       if (!dbUserData) {
-//         res.status(404).json({
-//           message: 'No user found with this id'
-//         });
-//         return;
-//       }
-//       res.json(dbUserData);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
+// DELETE /api/users/1 
+router.delete('/:id', withAuth, (req, res) => {
+  // TO DO: ENSURE USERS CAN ONLY DELETE THEMSELVES
+  User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({
+          message: 'No user found with this id'
+        });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 
 module.exports = router;

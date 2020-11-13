@@ -3,10 +3,6 @@ const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
 const aws = require('aws-sdk');
-const multer = require('multer')
-const upload = multer({
-  dest: 'uploads/'
-})
 const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require("cors");
@@ -55,7 +51,7 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({
-  force: false
+  force: true
 }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });

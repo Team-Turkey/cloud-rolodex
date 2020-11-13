@@ -7,10 +7,12 @@ const Role = require("./Role");
 //     foreignKey: 'user_id',  
 // });
 Role.hasMany(User, {
+    constraints: false,
     foreignKey: 'role_id'
 });
 
 User.belongsTo(Role, {
+    constraints: false,
     foreignKey: "role_id"
 });
 

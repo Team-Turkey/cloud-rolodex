@@ -26,7 +26,12 @@ User.init(
       },
       avatar: {
         type: DataTypes.STRING,
+<<<<<<< Updated upstream
         defaultValue: ""
+=======
+        defaultValue: "/images/default.png",
+        allowNull: true
+>>>>>>> Stashed changes
       },
       // define a username column
       username: {

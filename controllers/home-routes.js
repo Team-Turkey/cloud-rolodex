@@ -10,7 +10,7 @@ const {
 router.get('/', (req, res) => {
   console.log("SESSION", req.session);
       res.render('homepage', {
-          loggedIn: req.session.loggedIn
+          loggedIn: req.session.loggedIn // Is this necessary??
       });
   });
 

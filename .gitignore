@@ -2,4 +2,9 @@ node_modules
 .env
 .DS_Store
 .sw
+<<<<<<< Updated upstream
 uploads/
+=======
+uploads/
+
+>>>>>>> Stashed changes
