@@ -2,16 +2,9 @@ const {
   User
 } = require('../models');
 
-<<<<<<< Updated upstream
-const userData = [
-  {
-    username: 'jeebs',
-    avatar: '',
-=======
 const userData = [{
     username: "jeebs",
     avatar: "/images/default.png",
->>>>>>> Stashed changes
     role_id: 1,
     first_name: "Jeff",
     last_name: "Johnston",
@@ -20,13 +13,8 @@ const userData = [{
     password: "password"
   },
   {
-<<<<<<< Updated upstream
-    username: 'mee-more',
-    avatar: '',
-=======
     username: "mee-more",
     avatar: "/images/default.png",
->>>>>>> Stashed changes
     role_id: 2,
     first_name: "Mandy",
     last_name: "Moore",
@@ -35,13 +23,8 @@ const userData = [{
     password: "password"
   },
   {
-<<<<<<< Updated upstream
-    username: '007',
-    avatar: '',
-=======
     username: "007",
     avatar: "/images/default.png",
->>>>>>> Stashed changes
     role_id: 3,
     first_name: "James",
     last_name: "Bond",
@@ -50,13 +33,8 @@ const userData = [{
     password: "password"
   },
   {
-<<<<<<< Updated upstream
-    username: 'Dames',
-    avatar: '',
-=======
     username: "Dames",
     avatar: "/images/default.png",
->>>>>>> Stashed changes
     role_id: 4,
     first_name: "Matt",
     last_name: "Damon",
@@ -65,13 +43,8 @@ const userData = [{
     password: "password"
   },
   {
-<<<<<<< Updated upstream
-    username: 'surely',
-    avatar: '',
-=======
     username: "surely",
     avatar: "/images/default.png",
->>>>>>> Stashed changes
     role_id: 1,
     first_name: "Shirly",
     last_name: "Temple",
