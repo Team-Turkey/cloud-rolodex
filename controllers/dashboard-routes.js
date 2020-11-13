@@ -35,7 +35,8 @@ router.get('/Sales', withAuth, (req, res) => {
       //   window.location.toString().split('/').length - 1];
       res.render('Sales', {
         users,
-        loggedIn: true
+        loggedIn: true,
+        layout: 'Sales'
       });
       console.log("user object being sent to handlebars", users)
     })
