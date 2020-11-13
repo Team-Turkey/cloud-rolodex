@@ -8,7 +8,7 @@ async function signupFormHandler(event) {
   // Confirm login credentials with database
   console.log(username, email, password)
     if (username && password) {
-      const response = await fetch("/api/users", {
+      const response = await fetch("api/users", {
         method: "post",
         body: JSON.stringify({
           username,
