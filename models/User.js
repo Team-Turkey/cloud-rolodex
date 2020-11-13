@@ -26,7 +26,7 @@ User.init(
       },
       avatar: {
         type: DataTypes.STRING,
-        defaultValue: ""
+        defaultValue: "/images/default.png"
       },
       // define a username column
       username: {
