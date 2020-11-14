@@ -24,18 +24,20 @@ router.get('/Sales', withAuth, (req, res) => {
       exclude: ['createdAt', 'updatedAt']
     }
   }).then((dbDepartmentData) => {
-    const deptArr = dbDepartmentData.map((department) => department.get({ plain: true }))
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    return departments;
     console.log("department pulled from db", deptArr)
-  }).then(deptArr => {
+  }).then(departments => {
     Role.findAll({
       model: Role,
       attributes: ["department_id"]
     })
     .then((dbRoleData) => {
-      const roleArr = dbRoleData.map((role) => role.get({ plain: true }))
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      return roles;
       console.log("department id pulled from within roles, within department", roleArr)
     })
-    .then(roleArr => {
+    .then(roles => {
       User.findAll({
         attributes: {
           include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
@@ -56,6 +58,8 @@ router.get('/Sales', withAuth, (req, res) => {
         console.log("final user returned:", user)
         res.render('sales', {
           user,
+          departments,
+          roles,
           loggedIn: true,
           layout: 'nonav.handlebars'
         })
