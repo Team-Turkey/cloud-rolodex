@@ -51,14 +51,14 @@ The main.handlebars file used three curly brackets as {{{ body }}}, but here we'
   {{/each}}
 </ol>-->
 
-<hero class="jumbotron">Welcome to the Cloud Rolodex</hero>
+{{!-- <hero class="jumbotron">Welcome to the Cloud Rolodex</hero> --}}
 
 <div class="card">
-  <h3 class="card-header">Please Select an Option</h3>
+  <h3 id="prompt" class="card-header" >Welcome!</h3>
   <button type="submit" class="btn" href="/signup" id="signup">Create An Account</button>
     <button type="submit" class="btn" href="/login" id="login">Log In</button>
 </div>
 
-<p>Enterprise solutions for secure retention of employee information and communication</p>
+<p class="description">Enterprise solutions for secure retention of employee information and communication</p>
 
 <script src="/javascript/homepage.js"></script>

@@ -27,6 +27,18 @@ body {
   font-size: 16px;
 }
 
+header {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
+#prompt {
+  text-align: center;
+}
+
 h1,
 h2,
 h3,
@@ -313,6 +325,11 @@ p {
   flex: 0 0 100%;
 }
 
+footer {
+  text-align: center;
+}
+  
+
 /* col-sm */
 @media screen and (min-width: 640px) {
   .col-sm-1 {
@@ -516,6 +533,6 @@ p {
   .col-xl-12 {
     flex: 0 0 100%;
   }
+  
 }
-
 
