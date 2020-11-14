@@ -73,7 +73,7 @@ header {
   transform: translate(-1px, -1px);
 }
 
-.login-form {
+.login-form, .signup-form {
   display: flex;
   justify-content: center;
 }
