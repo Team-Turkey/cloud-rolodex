@@ -16,7 +16,7 @@ router.get('/Sales', withAuth, (req, res) => {
       "$Role.Department.name$": "Sales"
     },
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+      include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
       exclude: ['password'],
     },
     include: [{
