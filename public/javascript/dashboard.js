@@ -16,9 +16,6 @@ function formSubmitHandler(event) {
     }
 };
 
-
-
-
 function buttonClickHandler(event) {
     var iframeContainerEl = document.createElement("div")
     console.log("iframe container element", iframeContainerEl)
