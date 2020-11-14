@@ -1,7 +1,7 @@
 var searchAllUsersEl = document.querySelector("#all-users")
 var nameInputEl = document.querySelector("#first-name")
 var usersContainerEl = document.querySelector("#users-container");
-
+// var updateButtonEl = document.querySelector("#update-button")
 var departmentButtonsEl = document.querySelector("#department-buttons")
 
 function formSubmitHandler(event) {
@@ -34,12 +34,22 @@ function buttonClickHandler(event) {
 };
 
 function UpdateButtonClickHandler(event) {
-    event.preventDefault()
-    document.location.replace('/edit-user')
+    var iframeContainerEl = document.createElement("div")
+    console.log("iframe container element", iframeContainerEl)
+    var name = event.target.getAttribute("id")
+    console.log("name", name)
+    // create an iframe element
+    var iframeEL = document.getElementById("myframe")
+
+    // set src attribute
+    iframeEL.setAttribute("src", '../dashboard/edit' + name + '/')
+    
+    
+    console.log(iframeEL)
 }
 
 
 
 searchAllUsersEl.addEventListener("click", buttonClickHandler)
-
+// updateButtonEl.addEventListener('click', buttonClickHandler)
 departmentButtonsEl.addEventListener("click", buttonClickHandler);

@@ -10,7 +10,7 @@ const {
 const withAuth = require('../utils/auth');
 
 
-router.get('/Sales', withAuth, (req, res) => {
+router.get('/sales', withAuth, (req, res) => {
    
   // query for department by name 
   // get the depart ID and then 
@@ -56,6 +56,8 @@ router.get('/Sales', withAuth, (req, res) => {
         console.log("final user returned:", user)
         res.render('sales', {
           user,
+          roleArr,
+          deptArr,
           loggedIn: true,
           layout: 'nonav.handlebars'
         })
@@ -122,6 +124,7 @@ router.get('/Engineering', withAuth, (req, res) => {
   })
     .then((dbPostData) => {
       const users = dbPostData.map((user) => user.get({ plain: true }))
+      
       // const name = window.location.toString().split('/')[
       //   window.location.toString().split('/').length - 1];
       res.render('Engineering', {
