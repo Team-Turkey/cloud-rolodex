@@ -85,6 +85,13 @@ router.get('/Engineering', withAuth, (req, res) => {
 })
 
 router.get('/Finance', withAuth, (req, res) => {
+ 
+  // query for department by name 
+  // get the depart ID and then 
+  //query roles for department id
+  // get the list of role ids
+  //get users who are in that list of role ids
+
   User.findAll({
     where: {
       "$Role.Department.name$": "Finance"
