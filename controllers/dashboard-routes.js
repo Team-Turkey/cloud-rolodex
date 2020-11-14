@@ -10,41 +10,100 @@ const {
 const withAuth = require('../utils/auth');
 
 
-router.get('/Sales', withAuth, (req, res) => {
-  User.findAll({
-    where: {
-      "$Role.Department.name$": "Sales"
-    },
+router.get('/sales', withAuth, (req, res) => {
+   
+  // query for department by name 
+  // get the depart ID and then 
+  //query roles for department id
+  // get the list of role ids
+  //get users who are in that list of role ids
+
+  Department.findAll({
     attributes: {
-      include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-      exclude: ['password'],
-    },
-    include: [{
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
       model: Role,
-      attributes: ["id", "title", "department_id"],
-      include: {
-        model: Department,
-        attributes: ["name"]
-      },
-    },
-    ]
-  })
-    .then((dbPostData) => {
-      const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
-      res.render('Sales', {
-        users,
-        loggedIn: true,
-        layout: 'nonav.handlebars'
-        
-      });
-      console.log("user object being sent to handlebars", users)
+      attributes: ["department_id"]
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        attributes: {
+          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+          exclude: ['password'],
+        },
+        include: [{
+          model: Role,
+          attributes: ["id", "title", "department_id"],
+          include: {
+            model: Department,
+            attributes: ["name"]
+          },
+        },
+        ]
+      })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('sales', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
+
+
+  // User.findAll({
+  //   where: {
+  //     "$Role.Department.name$": "Sales"
+  //   },
+  //   attributes: {
+  //     include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+  //     exclude: ['password'],
+  //   },
+  //   include: [{
+  //     model: Role,
+  //     attributes: ["id", "title", "department_id"],
+  //     include: {
+  //       model: Department,
+  //       attributes: ["name"]
+  //     },
+  //   },
+  //   ]
+  // })
+  //   .then((dbPostData) => {
+  //     const users = dbPostData.map((user) => user.get({ plain: true }))
+  //     // const name = window.location.toString().split('/')[
+  //     //   window.location.toString().split('/').length - 1];
+  //     res.render('Sales', {
+  //       users,
+  //       loggedIn: true,
+  //       layout: 'nonav.handlebars'
+        
+  //     });
+  //     console.log("user object being sent to handlebars", users)
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     res.status(500).json(err);
+  //   });
 })
 
 router.get('/Engineering', withAuth, (req, res) => {
@@ -69,6 +128,7 @@ router.get('/Engineering', withAuth, (req, res) => {
   })
     .then((dbPostData) => {
       const users = dbPostData.map((user) => user.get({ plain: true }))
+      
       // const name = window.location.toString().split('/')[
       //   window.location.toString().split('/').length - 1];
       res.render('Engineering', {
@@ -203,7 +263,7 @@ router.get('/all-users', withAuth, (req, res) => {
   User.findAll({
 
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
+      include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
       exclude: ['password'],
     },
     include: [{
