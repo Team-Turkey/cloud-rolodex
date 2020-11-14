@@ -157,6 +157,7 @@ router.get('/engineering', withAuth, (req, res) => {
       })
     })
   })
+})
 
 router.get('/finance', withAuth, (req, res) => {
  
@@ -215,6 +216,7 @@ router.get('/finance', withAuth, (req, res) => {
       })
     })
   })
+})
 
 router.get('/legal', withAuth, (req, res) => {
   Department.findAll({
@@ -267,6 +269,7 @@ router.get('/legal', withAuth, (req, res) => {
       })
     })
   })
+})
 
 router.get('/sanitation', withAuth, (req, res) => {
   Department.findAll({
@@ -319,6 +322,7 @@ router.get('/sanitation', withAuth, (req, res) => {
       })
     })
   })
+})
 
 router.get('/all-users', withAuth, (req, res) => {
   User.findAll({
