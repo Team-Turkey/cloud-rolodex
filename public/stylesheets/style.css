@@ -48,6 +48,10 @@ p {
   font-size: 1.2rem;
 }
 
+iframe {
+  height: 100vh;
+}
+
  .btn {
   font-size: 1.3rem;
   text-decoration:none;
