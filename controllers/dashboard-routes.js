@@ -41,6 +41,9 @@ router.get('/sales', withAuth, (req, res) => {
     })
     .then(roles => {
       User.findAll({
+          where: {
+           role_id: 1
+        },
         attributes: {
           include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
           exclude: ['password'],
@@ -48,12 +51,11 @@ router.get('/sales', withAuth, (req, res) => {
         include: [{
           model: Role,
           attributes: ["id", "title", "department_id"],
-          include: {
+          include: [{
             model: Department,
             attributes: ["name"]
-          },
-        },
-        ]
+          }],
+        }],
       })
       .then((dbUserData) => {
         const user = dbUserData.map((user) => user.get({ plain: true }))
@@ -130,20 +132,22 @@ router.get('/engineering', withAuth, (req, res) => {
     })
     .then(roles => {
       User.findAll({
-        attributes: {
-          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
+        where: {
+         role_id: 2
+      },
+      attributes: {
+        include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
         include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-        ]
-      })
+          model: Department,
+          attributes: ["name"]
+        }],
+      }],
+    })
       .then((dbUserData) => {
         const user = dbUserData.map((user) => user.get({ plain: true }))
         console.log("final user returned:", user)
@@ -189,20 +193,22 @@ router.get('/finance', withAuth, (req, res) => {
     })
     .then(roles => {
       User.findAll({
-        attributes: {
-          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
+        where: {
+         role_id: 3
+      },
+      attributes: {
+        include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
         include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-        ]
-      })
+          model: Department,
+          attributes: ["name"]
+        }],
+      }],
+    })
       .then((dbUserData) => {
         const user = dbUserData.map((user) => user.get({ plain: true }))
         console.log("final user returned:", user)
@@ -242,20 +248,22 @@ router.get('/legal', withAuth, (req, res) => {
     })
     .then(roles => {
       User.findAll({
-        attributes: {
-          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
+        where: {
+         role_id: 4
+      },
+      attributes: {
+        include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
         include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-        ]
-      })
+          model: Department,
+          attributes: ["name"]
+        }],
+      }],
+    })
       .then((dbUserData) => {
         const user = dbUserData.map((user) => user.get({ plain: true }))
         console.log("final user returned:", user)
@@ -295,20 +303,22 @@ router.get('/sanitation', withAuth, (req, res) => {
     })
     .then(roles => {
       User.findAll({
-        attributes: {
-          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-          exclude: ['password'],
-        },
+        where: {
+         role_id: 5
+      },
+      attributes: {
+        include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
         include: [{
-          model: Role,
-          attributes: ["id", "title", "department_id"],
-          include: {
-            model: Department,
-            attributes: ["name"]
-          },
-        },
-        ]
-      })
+          model: Department,
+          attributes: ["name"]
+        }],
+      }],
+    })
       .then((dbUserData) => {
         const user = dbUserData.map((user) => user.get({ plain: true }))
         console.log("final user returned:", user)
