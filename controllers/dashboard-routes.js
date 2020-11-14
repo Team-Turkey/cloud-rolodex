@@ -106,158 +106,219 @@ router.get('/sales', withAuth, (req, res) => {
   //   });
 })
 
-router.get('/Engineering', withAuth, (req, res) => {
-  User.findAll({
-    where: {
-      "$Role.Department.name$": "Engineering"
-    },
+router.get('/engineering', withAuth, (req, res) => {
+  Department.findAll({
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-      exclude: ['password'],
-    },
-    include: [{
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
       model: Role,
-      attributes: ["id", "title", "department_id"],
-      include: {
-        model: Department,
-        attributes: ["name"],
-        
-      },
-    },
-    ]
-  })
-    .then((dbPostData) => {
-      const users = dbPostData.map((user) => user.get({ plain: true }))
-      
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
-      res.render('Engineering', {
-        users,
-        loggedIn: true,
-        layout: 'nonav.handlebars'
-      });
-      console.log("user object being sent to handlebars", users)
+      attributes: ["department_id"]
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-})
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        attributes: {
+          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+          exclude: ['password'],
+        },
+        include: [{
+          model: Role,
+          attributes: ["id", "title", "department_id"],
+          include: {
+            model: Department,
+            attributes: ["name"]
+          },
+        },
+        ]
+      })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('engineering', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
 
-router.get('/Finance', withAuth, (req, res) => {
+router.get('/finance', withAuth, (req, res) => {
  
   // query for department by name 
   // get the depart ID and then 
   //query roles for department id
   // get the list of role ids
   //get users who are in that list of role ids
-
-  User.findAll({
-    where: {
-      "$Role.Department.name$": "Finance"
-    },
+  Department.findAll({
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-      exclude: ['password'],
-    },
-    include: [{
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
       model: Role,
-      attributes: ["id", "title", "department_id"],
-      include: {
-        model: Department,
-        attributes: ["name"]
-      },
-    },
-    ]
-  })
-    .then((dbPostData) => {
-      const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
-      res.render('Finance', {
-        users,
-        loggedIn: true,
-        layout: 'nonav.handlebars'
-      });
-      console.log("user object being sent to handlebars", users)
+      attributes: ["department_id"]
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-})
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        attributes: {
+          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+          exclude: ['password'],
+        },
+        include: [{
+          model: Role,
+          attributes: ["id", "title", "department_id"],
+          include: {
+            model: Department,
+            attributes: ["name"]
+          },
+        },
+        ]
+      })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('finance', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
 
-router.get('/Legal', withAuth, (req, res) => {
-  User.findAll({
-    where: {
-      "$Role.Department.name$": "Legal"
-    },
+router.get('/legal', withAuth, (req, res) => {
+  Department.findAll({
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-      exclude: ['password'],
-    },
-    include: [{
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
       model: Role,
-      attributes: ["id", "title", "department_id"],
-      include: {
-        model: Department,
-        attributes: ["name"]
-      },
-    },
-    ]
-  })
-    .then((dbPostData) => {
-      const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
-      res.render('Legal', {
-        users,
-        loggedIn: true,
-        layout: 'nonav.handlebars'
-      });
-      console.log("user object being sent to handlebars", users)
+      attributes: ["department_id"]
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-})
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        attributes: {
+          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+          exclude: ['password'],
+        },
+        include: [{
+          model: Role,
+          attributes: ["id", "title", "department_id"],
+          include: {
+            model: Department,
+            attributes: ["name"]
+          },
+        },
+        ]
+      })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('legal', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
 
-router.get('/Sanitation', withAuth, (req, res) => {
-  User.findAll({
-    where: {
-      "$Role.Department.name$": "Sanitation"
-    },
+router.get('/sanitation', withAuth, (req, res) => {
+  Department.findAll({
     attributes: {
-      include: ['first_name', 'last_name', 'phone', 'email', 'role.department_id'],
-      exclude: ['password'],
-    },
-    include: [{
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
       model: Role,
-      attributes: ["id", "title", "department_id"],
-      include: {
-        model: Department,
-        attributes: ["name"]
-      },
-    },
-    ]
-  })
-    .then((dbPostData) => {
-      const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
-      res.render('Sanitation', {
-        users,
-        loggedIn: true,
-        layout: 'nonav.handlebars'
-      });
-      console.log("user object being sent to handlebars", users)
+      attributes: ["department_id"]
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-})
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        attributes: {
+          include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+          exclude: ['password'],
+        },
+        include: [{
+          model: Role,
+          attributes: ["id", "title", "department_id"],
+          include: {
+            model: Department,
+            attributes: ["name"]
+          },
+        },
+        ]
+      })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('sanitation', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
 
 router.get('/all-users', withAuth, (req, res) => {
   User.findAll({
