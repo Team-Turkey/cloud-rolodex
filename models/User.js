@@ -43,22 +43,22 @@ User.init(
       },
       first_name: {
         type: DataTypes.STRING,
-          defaultValue: " "
+          defaultValue: ""
       },
       last_name: {
         type: DataTypes.STRING,
-        defaultValue: " "
+        defaultValue: ""
       },
       phone: {
         type: DataTypes.STRING,
-        defaultValue: " ",
+        defaultValue: "",
         // there cannot be any duplicate email values in this table
         
       },
       // define an email column
       email: {
         type: DataTypes.STRING,
-        defaultValue: " ",
+        defaultValue: "",
         // there cannot be any duplicate email values in this table
         unique: true,
         // if allowNull is set to false, we can run our data through validators before creating the table data

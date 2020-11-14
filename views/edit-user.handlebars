@@ -15,11 +15,12 @@
     </form>
   </div>
   </div>
-  <progress max=”100” value=”0”></progress>
+  <label for="file">Upload Progress:</label>
+  <progress id="file" max=”100” value=”0”></progress><br><br>
 
 
   {{!-- <form action="/profile" method="post" enctype="multipart/form-data">
-      <input id="file-input" type="file" name="avatar" />
+      <label>First name</label><input id="file-input" type="file" name="avatar" />
     </form> --}}
 
   {{!-- <p id="status">Please select a file</p>
@@ -29,22 +30,20 @@
 
   <form id="edit-user-form" class="edit-user-form">
     {{!-- <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png" /> --}}
-    <input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}" /><br>
-    <input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}" /><br>
-    <input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
+    <label for="first-name">First name:</label><br><input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}" /><br>
+    <label for"last-name">Last name:</label><br><input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}" /><br>
+    <label for="phone" >Phone:</label><br><input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
       value="{{user.phone}}" /><br>
-    <input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
-    {{!-- <input id="password" type="text" name="password" placeholder="password"><br> --}}
+    <label for="email" >Email:</label><br><input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
+    {{!-- <label>First name</label><input id="password" type="text" name="password" placeholder="password"><br> --}}
     {{!-- <label for="role">Please Select your Role:</label><br> --}}
-
+    <label for="role" >Role:</label><br>
     <select name="role-id" id="role" form="edit-user-form">
       {{#each roles}}
       <option value="{{this.id}}">{{this.title}}</option>
       {{/each}}
     </select>
-    <br>
-
-    <h2>Save changes</h2>
+    <br><br>
 
     <button class="btn" id="update-btn" type="submit">Update Profile</button>
   </form>
