@@ -9,6 +9,61 @@ const {
 } = require('../models');
 const withAuth = require('../utils/auth');
 
+router.get('/my-user-card', withAuth, (req, res) => {
+  Department.findAll({
+    attributes: {
+      include: ['id', 'name'],
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }).then((dbDepartmentData) => {
+    const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
+    return departments;
+    
+  }).then(departments => {
+    Role.findAll({
+      model: Role,
+      attributes: ["department_id"]
+    })
+    .then((dbRoleData) => {
+      const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
+      return roles;
+      
+    })
+    .then(roles => {
+      User.findAll({
+        where: {
+         id: req.session.user_id
+      },
+      attributes: {
+        include: ['id', 'first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
+        exclude: ['password'],
+      },
+      include: [{
+        model: Role,
+        attributes: ["id", "title", "department_id"],
+        include: [{
+          model: Department,
+          attributes: ["name"]
+        }],
+      }],
+    })
+      .then((dbUserData) => {
+        const user = dbUserData.map((user) => user.get({ plain: true }))
+        console.log("final user returned:", user)
+        res.render('my-user-card', {
+          user,
+          departments,
+          roles,
+          loggedIn: true,
+          layout: 'nonav.handlebars'
+        })
+      })
+    })
+  })
+})
+
 
 router.get('/sales', withAuth, (req, res) => {
    
@@ -70,42 +125,6 @@ router.get('/sales', withAuth, (req, res) => {
       })
     })
   })
-
-
-  // User.findAll({
-  //   where: {
-  //     "$Role.Department.name$": "Sales"
-  //   },
-  //   attributes: {
-  //     include: ['first_name', 'avatar', 'last_name', 'phone', 'email', 'role.department_id'],
-  //     exclude: ['password'],
-  //   },
-  //   include: [{
-  //     model: Role,
-  //     attributes: ["id", "title", "department_id"],
-  //     include: {
-  //       model: Department,
-  //       attributes: ["name"]
-  //     },
-  //   },
-  //   ]
-  // })
-  //   .then((dbPostData) => {
-  //     const users = dbPostData.map((user) => user.get({ plain: true }))
-  //     // const name = window.location.toString().split('/')[
-  //     //   window.location.toString().split('/').length - 1];
-  //     res.render('Sales', {
-  //       users,
-  //       loggedIn: true,
-  //       layout: 'nonav.handlebars'
-        
-  //     });
-  //     console.log("user object being sent to handlebars", users)
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     res.status(500).json(err);
-  //   });
 })
 
 router.get('/engineering', withAuth, (req, res) => {
@@ -353,8 +372,6 @@ router.get('/all-users', withAuth, (req, res) => {
   })
     .then((dbPostData) => {
       const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
       res.render('all-users', {
         users,
         loggedIn: true,
@@ -415,8 +432,7 @@ router.get('/users-by-name', withAuth, (req, res) => {
   })
     .then((dbPostData) => {
       const users = dbPostData.map((user) => user.get({ plain: true }))
-      // const name = window.location.toString().split('/')[
-      //   window.location.toString().split('/').length - 1];
+
       console.log("user object being sent to handlebars", users);
       res.render('users-by-name', {
         users,
@@ -458,19 +474,6 @@ router.get('/:id', (req, res) => {
 })
 
 
-// router.get('/:id', withAuth, (req, res) => {
-//   Department.findAll({
-//     attributes: ["id", "name"]
-// })
-//   .then((dbPostData) => {
-//     const departments = dbPostData.map((department) => department.get({plain: true}))
-//     res.render('dashboard', {departments, loggedIn: true});
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     res.status(500).json(err);
-//   });
-// })
 
 const allDepts = Department.findAll({
   attributes: {
@@ -509,21 +512,7 @@ const allRoles = Role.findAll({
 
 })
 
-// const updateUser =   User.findOne({
-//   // individualHooks: true,
-//   where: {
-//     id: req.params.id
-//   },
-//   include: [{
-//     model: Role,
-//     attributes: ["id", "title", "department_id"],
-//     include: {
-//       model: Department,
-//       attributes: ["name"]
-//     },
-//   },
-// ]
-// })
+
 
 router.get('/edit/:id', withAuth, (req, res) => {
   User.findOne({
@@ -547,19 +536,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
         });
         return;
       }
-      // console.log("DATA", dbUserData);
-      // res.json(dbUserData);
-      // })
+ 
       const user = dbUserData.get({
         plain: true
       });
       return user;
-      // console.log("USER", user);
-      // // pass data to template
-      // res.render('edit-user', {
-      //   user,
-      //   loggedIn: req.session.loggedIn
-      // });
+
     }).then(user => {
       Role.findAll({
           attributes: {
@@ -591,7 +573,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
               user,
               roles,
               loggedIn: req.session.loggedIn,
-              layout: 'nonav.handlebars'
+              
             })
             .catch(err => {
               console.log(err);
@@ -600,5 +582,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
         });
     });
 });
+
+
 
 module.exports = router;
