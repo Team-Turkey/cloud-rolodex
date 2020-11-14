@@ -25,8 +25,9 @@ router.get('/sales', withAuth, (req, res) => {
     }
   }).then((dbDepartmentData) => {
     const departments = dbDepartmentData.map((department) => department.get({ plain: true }));
+    console.log("department pulled from db", departments)
     return departments;
-    console.log("department pulled from db", deptArr)
+    
   }).then(departments => {
     Role.findAll({
       model: Role,
@@ -34,8 +35,9 @@ router.get('/sales', withAuth, (req, res) => {
     })
     .then((dbRoleData) => {
       const roles = dbRoleData.map((role) => role.get({ plain: true }));
+      console.log("department id pulled from within roles, within department", roles)
       return roles;
-      console.log("department id pulled from within roles, within department", roleArr)
+      
     })
     .then(roles => {
       User.findAll({

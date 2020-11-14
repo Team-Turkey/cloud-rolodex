@@ -1,7 +1,7 @@
 <h2 class="subtitle">Showing Results for for: <span id="user-search-term">{{first_name}}</span></h2>
 
-{{!-- {{#each users as |user| }} --}}
-{{log users as |user| 'logging user'}}
+{{#each user as |user| }}
+
 
 <div id="users-container" class="list-group">  
   <div class="card">
@@ -15,4 +15,4 @@
   </div>
 </div>
 </div>
-{{!-- {{/each}} --}}
+{{/each}}
