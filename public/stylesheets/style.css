@@ -31,12 +31,46 @@ header {
   text-align: center;
 }
 
+#home-div, #footer-wrap {
+  border: none;
+}
+
+#footer-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* footer {
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: 3px 3px var(--dark);
+  padding: 15px 5px;
+  margin: 5px 0;
+  border: none;
+  outline: none;
+  transform: translate(-1px, -1px);
+  background-color: #38302e;
+  color: #ccdad1;
+  width: 25%;
+} */
+
+#footer {
+  font-size: 1rem;
+}
+
 .description {
   text-align: center;
 }
 
 #prompt {
   text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: 3px 3px var(--dark);
+  padding: 15px 5px;
+  margin: 5px 0;
+  border: none;
+  outline: none;
+  transform: translate(-1px, -1px);
 }
 
 h1,
@@ -54,6 +88,7 @@ h6 {
 main {
   margin: 20px auto;
   width: 94%;
+  border: none;
 }
 
 p {
@@ -324,11 +359,6 @@ p {
 .col-12 {
   flex: 0 0 100%;
 }
-
-footer {
-  text-align: center;
-}
-  
 
 /* col-sm */
 @media screen and (min-width: 640px) {
