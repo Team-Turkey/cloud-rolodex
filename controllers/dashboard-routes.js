@@ -590,7 +590,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
           res.render('edit-user', {
               user,
               roles,
-              loggedIn: req.session.loggedIn
+              loggedIn: req.session.loggedIn,
+              layout: 'nonav.handlebars'
             })
             .catch(err => {
               console.log(err);
