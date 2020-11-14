@@ -73,6 +73,11 @@ header {
   transform: translate(-1px, -1px);
 }
 
+.login-form {
+  display: flex;
+  justify-content: center;
+}
+
 h1,
 h2,
 h3,
