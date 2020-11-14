@@ -30,11 +30,11 @@
 
   <form id="edit-user-form" class="edit-user-form">
     {{!-- <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png" /> --}}
-    <label for="first-name">First name:</label><br><input id="first-name" type="text" name="first-name" placeholder="First Name" value="{{user.first_name}}" /><br>
-    <label for"last-name">Last name:</label><br><input id="last-name" type="text" name="last-name" placeholder="Last Name" value="{{user.last_name}}" /><br>
-    <label for="phone" >Phone:</label><br><input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone: 999-999-9999"
+    <label for="first-name">First name:</label><br><input id="first-name" type="text" name="first-name" value="{{user.first_name}}" /><br>
+    <label for"last-name">Last name:</label><br><input id="last-name" type="text" name="last-name"  value="{{user.last_name}}" /><br>
+    <label for="phone" >Phone:</label><br><input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: 999-999-9999"
       value="{{user.phone}}" /><br>
-    <label for="email" >Email:</label><br><input id="email" type="email" name="email" placeholder="email" value={{user.email}} /><br>
+    <label for="email" >Email:</label><br><input id="email" type="email" name="email" value={{user.email}} /><br>
     {{!-- <label>First name</label><input id="password" type="text" name="password" placeholder="password"><br> --}}
     {{!-- <label for="role">Please Select your Role:</label><br> --}}
     <label for="role" >Role:</label><br>
