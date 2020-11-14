@@ -2,10 +2,11 @@ const {
     Model,
     DataTypes
 } = require('sequelize');
-const {
-    default: validator
-} = require('validator');
 const sequelize = require('../config/connection');
+// const {
+//     default: validator
+// } = require('validator');
+// const sequelize = require('../config/connection');
 
 class Department extends Model {}
 
