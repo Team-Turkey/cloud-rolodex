@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Rolodex</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/45154460ac.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -13,7 +14,7 @@
        <header>
            <h1>
             {{#if loggedIn}}
-            <a href="/dashboard" class="app-title">Cloud Rolodex</a>
+            <a href="/dashboard" class="app-title"><i class="far fa-address-book"></i> Cloud Rolodex  </a>
             {{else}}
             <a href="/" class="app-title">Cloud Rolodex</a>
             
@@ -22,8 +23,8 @@
     <nav>
   {{#if loggedIn}}
   <div>
-    <a class="btn-secondary" href="/dashboard">dashboard</a>
-    <a class="btn-secondary" href="/" id="logout" class="btn-no-style">logout</a>
+    <a class="btn-secondary" href="/dashboard"><i class="fas fa-bars"></i>  dashboard</a>
+    <a class="btn-secondary" href="/" id="logout" class="btn-no-style"><i class="fas fa-sign-out-alt"></i>  logout</a>
   </div>
    
   {{else}}
