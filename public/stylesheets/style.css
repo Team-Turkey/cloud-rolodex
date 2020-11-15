@@ -18,7 +18,9 @@ html {
   text-decoration: none;
 }
 
-
+img {
+  border-radius: 5px;
+}
 body {
   background-color: var(--primary);
   margin: 0;
