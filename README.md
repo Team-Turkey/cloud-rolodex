@@ -5,16 +5,41 @@
 * You know the one, it has your co-worker’s phone number and email, but it’s been crossed off and re-written. What’s worse, half the people on the sheet don’t even work there anymore!
 * Introducing the 21st century solution, Cloud Rolodex! This easy to use application allows companies to build a database of employees, which allow logged-in users to update their own information, or to search for another employee in any department, or to view all employees in any department. 
 
-
-## Deployed Application Link: 
-![Screenshot]()
-
 ## Table of Contents
 * [Installation](#installation) 
 * [Usage](#usage) 
 * [License](#license) 
 * [Contributing](#contributing)
 * [Questions](#questions)
+
+## Link to Deployed Application
+* [Cloud-Rolodex](https://powerful-ravine-82745.herokuapp.com/)
+
+
+## Screenshots
+### Homepage
+![Homepage](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/homepage.jpg?raw=true)
+
+### Create New Account
+![Create Account](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/create-account.jpg?raw=true)
+
+### Login
+![Login](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/login.jpg?raw=true)
+
+### Dashboard
+![Dashboard](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/dashboard.jpg?raw=true)
+
+### Update info
+![Update-Info](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/update-info.jpg?raw=true)
+
+### Custom Search Results
+![Custom Search](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/custom-search.jpg?raw=true)
+
+### Search By Department
+
+![Custom Search](https://github.com/Team-Turkey/cloud-rolodex/blob/feature/server/public/images/search-by-dept.jpg?raw=true)
+
+
 
  
 ### Installation
