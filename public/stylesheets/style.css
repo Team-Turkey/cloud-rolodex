@@ -9,14 +9,19 @@
   
 }
 
-
+html {
+  scroll-behavior: smooth;
+}
 
 * {
   box-sizing: border-box;
   text-decoration: none;
 }
 
-
+img {
+  border-radius: 50px;
+  border: var(--dark) solid 3px;
+}
 body {
   background-color: var(--primary);
   margin: 0;
@@ -31,6 +36,17 @@ header, .description, .center-text, .card-body, .card-header, .user-card, .subti
   text-align: center;
 }
 
+.margin {
+  margin-bottom: 20px;
+}
+
+header {
+  background-image: url('../images/hero-bg-img.jpg');
+  background-size: cover;
+  background-blend-mode: screen;
+  border-bottom: var(--dark) solid 5px;
+  padding-top: 20px;
+}
 
 #home-div, #footer-wrap {
   border: none;
@@ -239,6 +255,7 @@ iframe {
 
 .card-body {
   padding: 2.5%;
+  background-color: var(--secondary);
 }
 
 /* FORM */
