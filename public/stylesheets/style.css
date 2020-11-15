@@ -19,7 +19,8 @@ html {
 }
 
 img {
-  border-radius: 5px;
+  border-radius: 50px;
+  border: var(--dark) solid 3px;
 }
 body {
   background-color: var(--primary);
