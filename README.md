@@ -1,7 +1,10 @@
 # cloud-rolodex
 ![](https://img.shields.io/badge/License-MIT-blue.svg)
 ## Description 
-Cloud Rolodex is an interactive, express.js, sequelize and mySql-driven application that captures user input in the form of company rolodex data stored on a backend server. The rolodex items are each assigned a unique ID, and may be edited and deleted by logged in users at the push of a button. 
+* Finally, you can throw away that 10 year old scrap of paper that’s taped to the break-room fridge. 
+* You know the one, it has your co-worker’s phone number and email, but it’s been crossed off and re-written. What’s worse, half the people on the sheet don’t even work there anymore!
+* Introducing the 21st century solution, Cloud Rolodex! This easy to use application allows companies to build a database of employees, which allow logged-in users to update their own information, or to search for another employee in any department, or to view all employees in any department. 
+
 
 ## Deployed Application Link: 
 ![Screenshot]()
@@ -28,6 +31,22 @@ Cloud Rolodex is an interactive, express.js, sequelize and mySql-driven applicat
   * jest
 ### Usage
  Open the deployed application via Heroku with the provided link above. Follow the prompts to create or browse employee data. 
+
+### User Story
+* As an Employer
+* I WANT one centralized database for all employees
+* SO THEN the employees may update their contact information, and view other employees
+* WHEN I visit the homepage
+* THEN I am given option either to Log In or Create an Account
+* WHEN I create an account or log in
+* THEN I am redirected to the dashboard. 
+* WHEN I search by a user's first name, 
+* THEN I am redirected to a page that shows all user cards
+* WHEN I click a button to search by department
+* THEN The dashboard updates with all employees in that department
+* WHEN I click the button to update my user information
+* THEN I am redirected to the edit-user page where I can update and add information
+
 ### License
   MIT
 ### Contributing
@@ -35,13 +54,10 @@ Cloud Rolodex is an open source project, and anyone is encouraged to contribute 
 
 Developers who worked on this project are: 
 
-Octavio Garcia: Front-end
-https://github.com/octaviusg
-
-Seth Uschuk: Front-end
+Seth Uschuk: 
 https://github.com/suschuk24
 
-Jeff Johnston: Back-end
+Jeff Johnston: 
 https://github.com/jeffwjohn
 
 ### Questions
