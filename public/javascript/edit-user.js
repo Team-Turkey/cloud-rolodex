@@ -1,8 +1,9 @@
 async function editFormHandler(event) {
     event.preventDefault();
 
-    const id = window.location.toString().split('/')[
+    const id = window.parent.location.toString().split('/')[
         window.location.toString().split('/').length - 1];
+    console.log("id", id)
     const first_name = document.querySelector('input[name="first-name"]').value.trim();
     const last_name = document.querySelector('input[name="last-name"]').value.trim();
     const phone = document.querySelector('input[name="phone"]').value.trim();
@@ -24,8 +25,9 @@ async function editFormHandler(event) {
             'Content-Type': 'application/json'
         }
     });
+    console.log("id", id)
     if (response.ok) {
-        document.location.replace('/dashboard/');
+        document.location.replace('/dashboard');
         
     } else {
         alert(response.statusText);

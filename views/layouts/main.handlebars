@@ -6,37 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Rolodex</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Poppins:wght@200;600&display=swap" rel="stylesheet">    
+    <script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+  }
+</script>     
+    <script src="https://kit.fontawesome.com/45154460ac.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div>
-       <header>
-           <h1>
-            {{#if loggedIn}}
-            <a href="/dashboard" class="app-title">Cloud Rolodex</a>
-            {{else}}
-            <a href="/" class="app-title">Cloud Rolodex</a>
-            
-            {{/if}}
-    </h1>
-    <nav>
-  {{#if loggedIn}}
-  <div>
-    <a class="btn-secondary" href="/dashboard">dashboard</a>
-    <a class="btn-secondary" href="/" id="logout" class="btn-no-style">logout</a>
-  </div>
-   
-  {{else}}
-  <a class="btn-secondary" href="/login">login</a>
-  {{/if}}
-</nav>
-</header>
+    <div> 
+        <header>
+            <nav>
+                {{#if loggedIn}}
+                <a href="/dashboard" class="app-title"><img src="/images/logo.png"> </a>
+                <div>
+                    <a class="btn-secondary" href="/" id="logout" class="btn-no-style"><i
+                            class="fas fa-sign-out-alt"></i> logout</a>
+                </div>
+                {{else}}
+                
+                <a href="/dashboard" class="app-title margin"><img src="/images/logo.png"> </a>
+                {{/if}}
+            </nav>
+        </header>
         <main>
             {{{ body }}}
         </main>
-        <footer>
-            &COPY; 2020 Team Turkey
-        </footer>
+        <div id="footer-wrap">
+            <footer id="footer" class="app-title">
+                &COPY; 2020 Team Turkey
+            </footer>
+        </div>
     </div>
 
     {{#if loggedIn}}

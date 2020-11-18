@@ -1,55 +1,67 @@
-<section>
-  <div class="flex-row justify-space-between">
-      <div class="col-12 col-md-4">
-        <div class="card">
-           <h1></h1>
-          <h3 class="card-header text-uppercase">Search By Name</h3>
-          <form method="GET" action="/dashboard/users-by-name" enctype="multipart/form-data" id="user-form" class="card-body">
-            <label class="form-label" for="first-name">First Name</label>
-            <input name="first-name" id="first-name" type="text" autofocus="true" class="form-input" />
-            <input type="submit" class="btn" id="get-user" value="Get User">
-          </form>
-        </div>
-        <div class="card">
-          <h3 class="card-header text-uppercase">Search All Users</h3>
-          <div class="card-body" id="all-users">
-            {{!-- href="/dashboard/all-users" --}}
-            <a class="btn"   id="all-users">Search All Users</a>
-          </div>
-        </div>
 
-        <div class="card">
-          <h3 class="card-header text-uppercase">Search Employees By Department</h3>
-          <div class="card-body" id="department-buttons">
+
+<section>
+<div class="parent">
+<div class="div1">
+{{!-- height: 100vh in iframe element for media style screen size med and down --}}
+       
+
+   
+
+
+      
+        
+            {{!-- href="/dashboard/all-users" --}}
+            <a class="" href="#myframe" id="all-users">View Directory</a>
+         
+    
+
+        
+
+        
+      
+            {{!-- href="/dashboard/edit/{{id}}" --}}
+            <a class="" id="update-btn" href="/dashboard/edit/{{id}}">Edit Profile</a>
+          
+ 
+          <h4 class="subtitle">Departments</h4>
+          <div class="" id="department-buttons">
             {{#each departments as |department| }}
             {{!-- {{> user-info-button user}} --}}
                 {{!-- href="/dashboard/{{name}}" --}}
-            <a class="btn"  department="{{name}}" id="{{name}}">{{name}}</a>
+            <a class="btndept" href="#myframe" department="{{name}}" id="{{name}}">{{name}}</a>
             {{/each}}
 
           </div>
-        </div>
+       
+      
+</div>  
+  
+  
+<div class="div2">  
 
-        <div class="card">
-          <h3 class="card-header text-uppercase">Update Your Information</h3>
-          <div class="card-body" id="update-button">
-            <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
-            {{!-- href="/dashboard/edit/{{id}}" --}}
-            <a class="btn" id="update-btn" href="/dashboard/edit/{{id}}">Update Info</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-8 myframe">
-        {{!-- height: 100vh in iframe element for media style screen size med and down --}}
-        <iframe id="myframe" src="" width="100%" frameborder=""></iframe>
+
+   <form method="GET" action="/dashboard/users-by-name" enctype="multipart/form-data" id="user-form" class="search">
+            <label class="form-label" for="first-name"></label>
+            <input name="first-name" id="first-name" type="text" autofocus="true"  placeholder="Ex: John Smith"  class="form-input" />
+            <input type="submit" class="searchbtn" id="get-user" value="Search">
+          </form>
+
+
+<iframe id="myframe" src="dashboard/my-user-card" frameborder="0" allowfullscreen></iframe>
         {{#each user as |user| }}
         
         
         {{> user-info department}}
         
         {{/each}}
-      </div>
+     
   </div>
+        
+ 
+
+  
+     
 </section>
 
 <script src="/javascript/dashboard.js"></script>
